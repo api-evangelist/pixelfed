@@ -1,0 +1,43 @@
+name: Pixelfed FinOps
+description: >
+  Pixelfed is free, open-source software (AGPL-3.0). There are no API call
+  fees, per-seat charges, or token-based billing from the upstream project.
+  All financial considerations arise from infrastructure choices made by the
+  operator or the end user.
+cost_model: infrastructure-only
+api_call_cost: 0
+cost_drivers:
+  - category: Compute
+    description: >
+      PHP/Laravel application server. A small personal instance runs
+      comfortably on a 2-vCPU / 2 GB RAM VPS (~$6–$12/month at commodity
+      cloud providers). Larger community instances require horizontal scaling.
+  - category: Storage
+    description: >
+      Photo and video storage is the dominant cost driver. Images are stored
+      locally or on S3-compatible object storage. Expect 50–200 GB per 1,000
+      active users depending on upload frequency.
+  - category: Bandwidth / CDN
+    description: >
+      ActivityPub federation generates outbound HTTP traffic for every
+      federated event. The project has infrastructure sponsorship from Fastly
+      and DigitalOcean for the flagship pixelfed.social instance.
+  - category: Database
+    description: >
+      MySQL or PostgreSQL. Redis is required for queues and caching. Both are
+      lightweight for small-to-medium instances.
+  - category: Managed hosting
+    description: >
+      Third-party managed-hosting providers bundle all of the above into a
+      monthly fee starting around $0.99/month for personal use.
+optimization_tips:
+  - Use S3-compatible object storage with a CDN in front to minimize egress costs.
+  - Enable lazy-loading and image compression in the Pixelfed admin panel.
+  - Tune queue workers to process federation jobs off-peak when on shared hosting.
+  - Limit federation scope (defederate high-volume instances) to reduce inbound storage.
+funding:
+  - source: Patreon
+    url: https://www.patreon.com/dansup
+  - source: Open Collective
+    url: https://opencollective.com/pixelfed
+  - source: NLnet Foundation / NGI0 Discovery grant

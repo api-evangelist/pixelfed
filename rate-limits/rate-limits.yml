@@ -1,0 +1,41 @@
+name: Pixelfed API Rate Limits
+description: >
+  Pixelfed implements Mastodon-compatible rate limiting. The defaults below
+  reflect the upstream Mastodon reference values that Pixelfed inherits.
+  Individual instance operators may tighten or relax these limits through
+  server configuration. Rate-limit state is conveyed in response headers.
+headers:
+  - name: X-RateLimit-Limit
+    description: Maximum number of requests permitted in the current window
+  - name: X-RateLimit-Remaining
+    description: Number of requests still available in the current window
+  - name: X-RateLimit-Reset
+    description: ISO 8601 timestamp at which the current window resets
+limits:
+  - scope: per-account (general)
+    requests: 300
+    window: 5 minutes
+    applies_to: All API endpoints and methods
+  - scope: per-ip (general)
+    requests: 300
+    window: 5 minutes
+    applies_to: All API endpoints and methods
+  - scope: per-account (media upload)
+    requests: 30
+    window: 30 minutes
+    applies_to: POST /api/v1/media, POST /api/v2/media
+  - scope: per-account (status deletion)
+    requests: 30
+    window: 30 minutes
+    applies_to: DELETE /api/v1/statuses/:id, POST /api/v1/statuses/:id/unreblog
+  - scope: per-ip (account creation)
+    requests: 5
+    window: 30 minutes
+    applies_to: POST /api/v1/accounts
+notes: >
+  Because Pixelfed is self-hosted, these limits are defaults only. Any
+  instance operator can override them. Clients should always respect the
+  X-RateLimit-* response headers rather than assuming fixed values.
+references:
+  - https://docs.joinmastodon.org/api/rate-limits/
+  - https://github.com/pixelfed/pixelfed

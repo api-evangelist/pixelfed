@@ -1,0 +1,54 @@
+name: Pixelfed Plans
+description: >
+  Pixelfed is free and open-source software licensed under AGPL-3.0. There are
+  no commercial tiers or subscription plans for the software itself. Operators
+  choose one of three deployment paths depending on their budget and technical
+  capacity.
+plans:
+  - name: Self-Hosted (Free)
+    description: >
+      Download and run Pixelfed on your own infrastructure. No platform fees.
+      Costs are limited to your server, storage, and bandwidth. Docker Compose
+      and bare-metal installation guides are provided.
+    price: 0
+    currency: USD
+    billing_period: one-time
+    features:
+      - Full API access
+      - ActivityPub federation
+      - Custom domain
+      - Admin control panel
+      - Complete data ownership
+    url: https://docs.pixelfed.org/running-pixelfed/
+  - name: Managed Hosting (Third-party)
+    description: >
+      Several third-party providers offer fully-managed Pixelfed instances.
+      Representative pricing starts around $0.99/month for small personal
+      instances and rises with storage and traffic.
+    price_from: 0.99
+    currency: USD
+    billing_period: monthly
+    features:
+      - Managed updates
+      - Backups
+      - Full API access
+      - ActivityPub federation
+    url: https://octabyte.io/fully-managed-open-source-services/applications/fediverse/pixelfed/
+  - name: Pixelfed.social (Flagship Instance)
+    description: >
+      The primary public instance run by the Pixelfed project maintainer.
+      Registration is open to the public. Free to join; sustained by community
+      donations via Patreon and Open Collective.
+    price: 0
+    currency: USD
+    billing_period: free
+    features:
+      - Hosted API
+      - Full ActivityPub federation
+      - Mobile apps (iOS and Android)
+      - Stories, collections, direct messages
+    url: https://pixelfed.social
+notes: >
+  Because Pixelfed is self-hosted software there is no central SLA, uptime
+  guarantee, or support contract from the upstream project. Enterprise support
+  must be arranged independently with a managed-hosting vendor.
