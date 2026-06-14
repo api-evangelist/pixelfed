@@ -1,0 +1,179 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "dc": "http://purl.org/dc/terms/",
+    "owl": "http://www.w3.org/2002/07/owl#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "fediverse": "https://www.w3.org/ns/activitystreams#",
+    "oauth": "https://www.iana.org/assignments/oauth-parameters/"
+  },
+  "@type": "SoftwareApplication",
+  "@id": "https://pixelfed.org",
+  "name": "Pixelfed",
+  "alternateName": "Pixelfed REST API",
+  "description": "Mastodon-compatible REST API for the Pixelfed federated photo-sharing platform. Provides endpoints for accounts, statuses, timelines, media, notifications, search, collections, stories, direct messages, and instance/federation metadata. All authenticated calls use OAuth2 Bearer tokens.",
+  "url": "https://pixelfed.org",
+  "logo": "https://pixelfed.org/img/logo.svg",
+  "applicationCategory": "SocialNetworkingApplication",
+  "license": "https://spdx.org/licenses/AGPL-3.0-only.html",
+  "dc:license": "AGPL-3.0",
+  "dc:created": "2024-01-01",
+  "dc:modified": "2026-06-13",
+  "sameAs": [
+    "https://github.com/pixelfed/pixelfed",
+    "https://mastodon.social/@pixelfed"
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "hello@pixelfed.org",
+    "contactType": "technical support"
+  },
+  "provider": {
+    "@type": "Organization",
+    "name": "Pixelfed",
+    "url": "https://pixelfed.org",
+    "email": "hello@pixelfed.org"
+  },
+  "keywords": [
+    "Fediverse",
+    "ActivityPub",
+    "Photo Sharing",
+    "Social Media",
+    "Open Source",
+    "Decentralized",
+    "Mastodon Compatible",
+    "Federation"
+  ],
+  "isPartOf": {
+    "@type": "WebAPI",
+    "name": "Pixelfed REST API",
+    "description": "Mastodon-compatible federated photo-sharing REST API",
+    "documentation": "https://docs.pixelfed.org/",
+    "termsOfService": "https://pixelfed.org",
+    "dc:conformsTo": "https://spec.openapis.org/oas/v3.1.0",
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://{instance}/api",
+      "serviceType": "REST"
+    }
+  },
+  "featureList": [
+    "Account management and profile updates",
+    "Status creation, deletion, and interactions (favourite, reblog, bookmark)",
+    "Home, public, hashtag, and list timelines",
+    "Media upload (v1 synchronous and v2 asynchronous)",
+    "Notification retrieval and management",
+    "Full-text search across accounts, statuses, and hashtags",
+    "Follow, unfollow, block, unblock, mute, unmute operations",
+    "Follow request management",
+    "List creation, management, and membership",
+    "Instance and NodeInfo metadata",
+    "Trending tags, follow suggestions, and profile directory",
+    "Bookmarks and favourites collection",
+    "Domain block management",
+    "Photo collections (Pixelfed v1.1 extension)",
+    "Direct messages (Pixelfed v1.1 extension)",
+    "Ephemeral stories (Pixelfed v1.1 extension)",
+    "Web Push notification subscriptions",
+    "ActivityPub federation via inbox/outbox",
+    "WebFinger and NodeInfo discovery"
+  ],
+  "securityDefinitions": {
+    "@type": "CreativeWork",
+    "name": "OAuth2",
+    "description": "OAuth2 Authorization Code flow. Register an application at https://{instance}/settings/applications to obtain client_id and client_secret. Exchange via the standard OAuth2 authorization_code flow to obtain a Bearer token.",
+    "dc:identifier": "OAuth2",
+    "url": "https://docs.pixelfed.org/technical/api/"
+  },
+  "apiEndpoints": [
+    {
+      "@type": "EntryPoint",
+      "name": "Verify Credentials",
+      "httpMethod": "GET",
+      "url": "https://{instance}/api/v1/verify_credentials",
+      "description": "Returns the authenticated account's information"
+    },
+    {
+      "@type": "EntryPoint",
+      "name": "Update Credentials",
+      "httpMethod": "PATCH",
+      "url": "https://{instance}/api/v1/update_credentials",
+      "description": "Updates the authenticated account's profile"
+    },
+    {
+      "@type": "EntryPoint",
+      "name": "Get Account",
+      "httpMethod": "GET",
+      "url": "https://{instance}/api/v1/accounts/{id}",
+      "description": "Returns information about an account"
+    },
+    {
+      "@type": "EntryPoint",
+      "name": "Home Timeline",
+      "httpMethod": "GET",
+      "url": "https://{instance}/api/v1/timelines/home",
+      "description": "Returns statuses from followed accounts"
+    },
+    {
+      "@type": "EntryPoint",
+      "name": "Public Timeline",
+      "httpMethod": "GET",
+      "url": "https://{instance}/api/v1/timelines/public",
+      "description": "Returns public statuses known to the server"
+    },
+    {
+      "@type": "EntryPoint",
+      "name": "Post Status",
+      "httpMethod": "POST",
+      "url": "https://{instance}/api/v1/statuses",
+      "description": "Publish a new status/post"
+    },
+    {
+      "@type": "EntryPoint",
+      "name": "Upload Media v2",
+      "httpMethod": "POST",
+      "url": "https://{instance}/api/v2/media",
+      "description": "Asynchronous media upload"
+    },
+    {
+      "@type": "EntryPoint",
+      "name": "Search",
+      "httpMethod": "GET",
+      "url": "https://{instance}/api/v2/search",
+      "description": "Full-text search across accounts, statuses, and hashtags"
+    },
+    {
+      "@type": "EntryPoint",
+      "name": "Instance Info",
+      "httpMethod": "GET",
+      "url": "https://{instance}/api/v1/instance",
+      "description": "Returns general information about the Pixelfed instance"
+    },
+    {
+      "@type": "EntryPoint",
+      "name": "WebFinger",
+      "httpMethod": "GET",
+      "url": "https://{instance}/.well-known/webfinger",
+      "description": "WebFinger discovery endpoint for ActivityPub federation"
+    }
+  ],
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": "https://schema.org/FollowAction",
+    "userInteractionCount": "distributed across all Pixelfed instances"
+  },
+  "applicationSubCategory": [
+    "Photo Sharing",
+    "Federated Social Network",
+    "ActivityPub Client",
+    "Mastodon-Compatible Application"
+  ],
+  "fediverse:protocol": "ActivityPub",
+  "fediverse:compatible": [
+    "Mastodon",
+    "PeerTube",
+    "Misskey",
+    "Pleroma",
+    "Funkwhale"
+  ]
+}

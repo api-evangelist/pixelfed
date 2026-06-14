@@ -1,0 +1,13 @@
+{
+  "provider": "pixelfed",
+  "last_checked": "2026-06-13",
+  "feeds": [
+    {
+      "url": "https://pixelfed.org/blog",
+      "type": "html",
+      "last_fetched": null,
+      "posts": []
+    }
+  ],
+  "posts": []
+}
