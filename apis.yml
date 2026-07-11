@@ -177,3 +177,8 @@ maintainers:
   - FN: Kin Lane
     X-twitter: kinlane
     email: kin@apievangelist.com
+common:
+  - type: Authentication
+    url: authentication/pixelfed-authentication.yml
+  - type: OAuthScopes
+    url: scopes/pixelfed-scopes.yml

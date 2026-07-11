@@ -1,0 +1,35 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/openapi.yml
+schemes:
+- name: OAuth2
+  source: openapi/openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://{instance}/oauth/authorize
+    tokenUrl: https://{instance}/oauth/token
+scopes:
+- scope: follow
+  description: Manage follows, blocks, and mutes
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/openapi.yml
+- scope: push
+  description: Manage Web Push subscriptions
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/openapi.yml
+- scope: read
+  description: Read-only access to account data and timelines
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/openapi.yml
+- scope: write
+  description: Write access to post statuses and manage account
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/openapi.yml
