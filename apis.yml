@@ -178,6 +178,8 @@ maintainers:
     X-twitter: kinlane
     email: kin@apievangelist.com
 common:
+  - type: AgenticAccess
+    url: agentic-access/pixelfed-agentic-access.yml
   - type: DomainSecurity
     url: security/pixelfed-domain-security.yml
   - type: Authentication
