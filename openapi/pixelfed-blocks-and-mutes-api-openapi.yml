@@ -1,0 +1,258 @@
+openapi: 3.1.0
+info:
+  title: Pixelfed REST Accounts Blocks and Mutes API
+  description: 'Mastodon-compatible REST API for the Pixelfed federated photo-sharing platform. Provides endpoints for accounts, statuses, timelines, media, notifications, search, collections, stories, direct messages, and instance/federation metadata. All authenticated calls use OAuth2 Bearer tokens. Every Pixelfed instance exposes this API independently at its own domain; there is no single central API host.
+
+    '
+  version: '1.1'
+  contact:
+    name: Pixelfed
+    email: hello@pixelfed.org
+    url: https://pixelfed.org
+  license:
+    name: AGPL-3.0
+    url: https://github.com/pixelfed/pixelfed/blob/dev/LICENSE
+  x-logo:
+    url: https://pixelfed.org/img/logo.svg
+servers:
+- url: https://{instance}/api
+  description: A Pixelfed instance
+  variables:
+    instance:
+      default: pixelfed.social
+      description: Hostname of the Pixelfed instance
+security:
+- OAuth2:
+  - read
+  - write
+  - follow
+  - push
+- BearerAuth: []
+tags:
+- name: Blocks and Mutes
+  description: Blocked accounts and muted accounts
+paths:
+  /v1/blocks:
+    get:
+      operationId: listBlocks
+      summary: Get blocked accounts
+      description: Returns accounts blocked by the authenticated account.
+      tags:
+      - Blocks and Mutes
+      security:
+      - OAuth2:
+        - read
+      - BearerAuth: []
+      parameters:
+      - $ref: '#/components/parameters/limitParam'
+      - $ref: '#/components/parameters/maxIdParam'
+      - $ref: '#/components/parameters/sinceIdParam'
+      responses:
+        '200':
+          description: Array of accounts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Account'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/mutes:
+    get:
+      operationId: listMutes
+      summary: Get muted accounts
+      description: Returns accounts muted by the authenticated account.
+      tags:
+      - Blocks and Mutes
+      security:
+      - OAuth2:
+        - read
+      - BearerAuth: []
+      parameters:
+      - $ref: '#/components/parameters/limitParam'
+      - $ref: '#/components/parameters/maxIdParam'
+      - $ref: '#/components/parameters/sinceIdParam'
+      responses:
+        '200':
+          description: Array of accounts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Account'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/domain_blocks:
+    get:
+      operationId: listDomainBlocks
+      summary: Get blocked domains
+      description: Returns domains blocked by the authenticated account.
+      tags:
+      - Blocks and Mutes
+      security:
+      - OAuth2:
+        - read
+      - BearerAuth: []
+      parameters:
+      - $ref: '#/components/parameters/limitParam'
+      - $ref: '#/components/parameters/maxIdParam'
+      - $ref: '#/components/parameters/sinceIdParam'
+      responses:
+        '200':
+          description: Array of domain strings
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    Emoji:
+      type: object
+      properties:
+        shortcode:
+          type: string
+        url:
+          type: string
+          format: uri
+        static_url:
+          type: string
+          format: uri
+        visible_in_picker:
+          type: boolean
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+        error_description:
+          type: string
+          description: Additional error details
+    Field:
+      type: object
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+        verified_at:
+          type: string
+          format: date-time
+          nullable: true
+    Account:
+      type: object
+      description: Represents a Pixelfed / Mastodon-compatible account
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the account
+          example: '123456789'
+        username:
+          type: string
+          description: The account's username (local part)
+          example: alice
+        acct:
+          type: string
+          description: 'Webfinger account URI. Equal to username for local accounts, or username@domain for remote accounts.
+
+            '
+          example: alice@pixelfed.social
+        display_name:
+          type: string
+          description: Display name of the account
+          example: Alice
+        locked:
+          type: boolean
+          description: Whether the account requires manual follow approval
+        created_at:
+          type: string
+          format: date-time
+        note:
+          type: string
+          description: Biography / profile note (HTML)
+        url:
+          type: string
+          format: uri
+          description: Profile URL
+        avatar:
+          type: string
+          format: uri
+          description: URL to the account's avatar image
+        avatar_static:
+          type: string
+          format: uri
+          description: URL to a static version of the avatar
+        header:
+          type: string
+          format: uri
+          description: URL to the account's header image
+        header_static:
+          type: string
+          format: uri
+        followers_count:
+          type: integer
+        following_count:
+          type: integer
+        statuses_count:
+          type: integer
+        emojis:
+          type: array
+          items:
+            $ref: '#/components/schemas/Emoji'
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/Field'
+  parameters:
+    limitParam:
+      name: limit
+      in: query
+      description: Maximum number of results to return (default 20, max 80)
+      schema:
+        type: integer
+        default: 20
+        maximum: 80
+    maxIdParam:
+      name: max_id
+      in: query
+      description: Return results older than this ID
+      schema:
+        type: string
+    sinceIdParam:
+      name: since_id
+      in: query
+      description: Return results newer than this ID
+      schema:
+        type: string
+  responses:
+    Unauthorized:
+      description: Missing or invalid OAuth token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://{instance}/oauth/authorize
+          tokenUrl: https://{instance}/oauth/token
+          scopes:
+            read: Read-only access to account data and timelines
+            write: Write access to post statuses and manage account
+            follow: Manage follows, blocks, and mutes
+            push: Manage Web Push subscriptions
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: OAuth2
+externalDocs:
+  description: Pixelfed Documentation
+  url: https://docs.pixelfed.org/

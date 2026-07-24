@@ -1,0 +1,278 @@
+openapi: 3.1.0
+info:
+  title: Pixelfed REST Accounts Media API
+  description: 'Mastodon-compatible REST API for the Pixelfed federated photo-sharing platform. Provides endpoints for accounts, statuses, timelines, media, notifications, search, collections, stories, direct messages, and instance/federation metadata. All authenticated calls use OAuth2 Bearer tokens. Every Pixelfed instance exposes this API independently at its own domain; there is no single central API host.
+
+    '
+  version: '1.1'
+  contact:
+    name: Pixelfed
+    email: hello@pixelfed.org
+    url: https://pixelfed.org
+  license:
+    name: AGPL-3.0
+    url: https://github.com/pixelfed/pixelfed/blob/dev/LICENSE
+  x-logo:
+    url: https://pixelfed.org/img/logo.svg
+servers:
+- url: https://{instance}/api
+  description: A Pixelfed instance
+  variables:
+    instance:
+      default: pixelfed.social
+      description: Hostname of the Pixelfed instance
+security:
+- OAuth2:
+  - read
+  - write
+  - follow
+  - push
+- BearerAuth: []
+tags:
+- name: Media
+  description: Media upload and management
+paths:
+  /v1/media:
+    post:
+      operationId: uploadMedia
+      summary: Upload media (v1, synchronous)
+      description: Upload a media attachment. Returns immediately with the attachment.
+      tags:
+      - Media
+      security:
+      - OAuth2:
+        - write
+      - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+              - file
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: The file to upload
+                thumbnail:
+                  type: string
+                  format: binary
+                  description: Custom thumbnail for video/audio
+                description:
+                  type: string
+                  description: Alt text for the media
+                focus:
+                  type: string
+                  description: 'Focal point: two floats between -1.0 and 1.0 (x,y)'
+      responses:
+        '200':
+          description: Media attachment object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MediaAttachment'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+  /v1/media/{id}:
+    get:
+      operationId: getMedia
+      summary: Get media attachment
+      description: Returns a media attachment with the given ID.
+      tags:
+      - Media
+      security:
+      - OAuth2:
+        - read
+      - BearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Media attachment object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MediaAttachment'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateMedia
+      summary: Update media attachment
+      description: Update alt text or focus point of an existing media attachment.
+      tags:
+      - Media
+      security:
+      - OAuth2:
+        - write
+      - BearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                thumbnail:
+                  type: string
+                  format: binary
+                description:
+                  type: string
+                focus:
+                  type: string
+      responses:
+        '200':
+          description: Updated media attachment object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MediaAttachment'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /v2/media:
+    post:
+      operationId: uploadMediaV2
+      summary: Upload media (v2, asynchronous)
+      description: 'Upload a media attachment asynchronously. Returns 202 if still processing, or 200 when ready. Poll GET /api/v1/media/{id} to check processing status.
+
+        '
+      tags:
+      - Media
+      security:
+      - OAuth2:
+        - write
+      - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+              - file
+              properties:
+                file:
+                  type: string
+                  format: binary
+                thumbnail:
+                  type: string
+                  format: binary
+                description:
+                  type: string
+                focus:
+                  type: string
+      responses:
+        '200':
+          description: Media attachment (already processed)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MediaAttachment'
+        '202':
+          description: Media attachment (still processing)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MediaAttachment'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+components:
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnprocessableEntity:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid OAuth token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    MediaAttachment:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - unknown
+          - image
+          - gifv
+          - video
+          - audio
+        url:
+          type: string
+          format: uri
+          nullable: true
+        preview_url:
+          type: string
+          format: uri
+          nullable: true
+        remote_url:
+          type: string
+          format: uri
+          nullable: true
+        meta:
+          type: object
+        description:
+          type: string
+          nullable: true
+        blurhash:
+          type: string
+          nullable: true
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+        error_description:
+          type: string
+          description: Additional error details
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://{instance}/oauth/authorize
+          tokenUrl: https://{instance}/oauth/token
+          scopes:
+            read: Read-only access to account data and timelines
+            write: Write access to post statuses and manage account
+            follow: Manage follows, blocks, and mutes
+            push: Manage Web Push subscriptions
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: OAuth2
+externalDocs:
+  description: Pixelfed Documentation
+  url: https://docs.pixelfed.org/

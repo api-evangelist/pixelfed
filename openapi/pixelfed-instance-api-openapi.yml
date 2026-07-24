@@ -1,0 +1,222 @@
+openapi: 3.1.0
+info:
+  title: Pixelfed REST Accounts Instance API
+  description: 'Mastodon-compatible REST API for the Pixelfed federated photo-sharing platform. Provides endpoints for accounts, statuses, timelines, media, notifications, search, collections, stories, direct messages, and instance/federation metadata. All authenticated calls use OAuth2 Bearer tokens. Every Pixelfed instance exposes this API independently at its own domain; there is no single central API host.
+
+    '
+  version: '1.1'
+  contact:
+    name: Pixelfed
+    email: hello@pixelfed.org
+    url: https://pixelfed.org
+  license:
+    name: AGPL-3.0
+    url: https://github.com/pixelfed/pixelfed/blob/dev/LICENSE
+  x-logo:
+    url: https://pixelfed.org/img/logo.svg
+servers:
+- url: https://{instance}/api
+  description: A Pixelfed instance
+  variables:
+    instance:
+      default: pixelfed.social
+      description: Hostname of the Pixelfed instance
+security:
+- OAuth2:
+  - read
+  - write
+  - follow
+  - push
+- BearerAuth: []
+tags:
+- name: Instance
+  description: Instance and federation metadata
+paths:
+  /v1/instance:
+    get:
+      operationId: getInstance
+      summary: Get instance info (v1)
+      description: Returns general information about the instance.
+      tags:
+      - Instance
+      responses:
+        '200':
+          description: Instance object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Instance'
+  /v2/instance:
+    get:
+      operationId: getInstanceV2
+      summary: Get instance info (v2)
+      description: Returns extended instance information in the Mastodon v2 format.
+      tags:
+      - Instance
+      responses:
+        '200':
+          description: Extended instance object
+          content:
+            application/json:
+              schema:
+                type: object
+  /nodeinfo/2.0.json:
+    get:
+      operationId: getNodeInfo
+      summary: Get NodeInfo 2.0
+      description: Returns NodeInfo 2.0 document describing the instance software and usage.
+      tags:
+      - Instance
+      responses:
+        '200':
+          description: NodeInfo 2.0 document
+          content:
+            application/json:
+              schema:
+                type: object
+components:
+  schemas:
+    Field:
+      type: object
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+        verified_at:
+          type: string
+          format: date-time
+          nullable: true
+    Emoji:
+      type: object
+      properties:
+        shortcode:
+          type: string
+        url:
+          type: string
+          format: uri
+        static_url:
+          type: string
+          format: uri
+        visible_in_picker:
+          type: boolean
+    Instance:
+      type: object
+      properties:
+        uri:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        short_description:
+          type: string
+          nullable: true
+        email:
+          type: string
+        version:
+          type: string
+        urls:
+          type: object
+        stats:
+          type: object
+          properties:
+            user_count:
+              type: integer
+            status_count:
+              type: integer
+            domain_count:
+              type: integer
+        languages:
+          type: array
+          items:
+            type: string
+        contact_account:
+          $ref: '#/components/schemas/Account'
+        rules:
+          type: array
+          items:
+            type: object
+    Account:
+      type: object
+      description: Represents a Pixelfed / Mastodon-compatible account
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the account
+          example: '123456789'
+        username:
+          type: string
+          description: The account's username (local part)
+          example: alice
+        acct:
+          type: string
+          description: 'Webfinger account URI. Equal to username for local accounts, or username@domain for remote accounts.
+
+            '
+          example: alice@pixelfed.social
+        display_name:
+          type: string
+          description: Display name of the account
+          example: Alice
+        locked:
+          type: boolean
+          description: Whether the account requires manual follow approval
+        created_at:
+          type: string
+          format: date-time
+        note:
+          type: string
+          description: Biography / profile note (HTML)
+        url:
+          type: string
+          format: uri
+          description: Profile URL
+        avatar:
+          type: string
+          format: uri
+          description: URL to the account's avatar image
+        avatar_static:
+          type: string
+          format: uri
+          description: URL to a static version of the avatar
+        header:
+          type: string
+          format: uri
+          description: URL to the account's header image
+        header_static:
+          type: string
+          format: uri
+        followers_count:
+          type: integer
+        following_count:
+          type: integer
+        statuses_count:
+          type: integer
+        emojis:
+          type: array
+          items:
+            $ref: '#/components/schemas/Emoji'
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/Field'
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://{instance}/oauth/authorize
+          tokenUrl: https://{instance}/oauth/token
+          scopes:
+            read: Read-only access to account data and timelines
+            write: Write access to post statuses and manage account
+            follow: Manage follows, blocks, and mutes
+            push: Manage Web Push subscriptions
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: OAuth2
+externalDocs:
+  description: Pixelfed Documentation
+  url: https://docs.pixelfed.org/

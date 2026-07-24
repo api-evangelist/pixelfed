@@ -1,0 +1,132 @@
+openapi: 3.1.0
+info:
+  title: Pixelfed REST Accounts Push Notifications API
+  description: 'Mastodon-compatible REST API for the Pixelfed federated photo-sharing platform. Provides endpoints for accounts, statuses, timelines, media, notifications, search, collections, stories, direct messages, and instance/federation metadata. All authenticated calls use OAuth2 Bearer tokens. Every Pixelfed instance exposes this API independently at its own domain; there is no single central API host.
+
+    '
+  version: '1.1'
+  contact:
+    name: Pixelfed
+    email: hello@pixelfed.org
+    url: https://pixelfed.org
+  license:
+    name: AGPL-3.0
+    url: https://github.com/pixelfed/pixelfed/blob/dev/LICENSE
+  x-logo:
+    url: https://pixelfed.org/img/logo.svg
+servers:
+- url: https://{instance}/api
+  description: A Pixelfed instance
+  variables:
+    instance:
+      default: pixelfed.social
+      description: Hostname of the Pixelfed instance
+security:
+- OAuth2:
+  - read
+  - write
+  - follow
+  - push
+- BearerAuth: []
+tags:
+- name: Push Notifications
+  description: Web push subscription management (v1.1)
+paths:
+  /v1.1/push/update-subscription:
+    post:
+      operationId: updatePushSubscription
+      summary: Update Web Push subscription
+      description: Creates or updates a Web Push notification subscription.
+      tags:
+      - Push Notifications
+      security:
+      - OAuth2:
+        - push
+      - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - subscription
+              properties:
+                subscription:
+                  type: object
+                  required:
+                  - endpoint
+                  - keys
+                  properties:
+                    endpoint:
+                      type: string
+                      format: uri
+                    keys:
+                      type: object
+                      properties:
+                        p256dh:
+                          type: string
+                        auth:
+                          type: string
+                data:
+                  type: object
+                  properties:
+                    alerts:
+                      type: object
+                      properties:
+                        follow:
+                          type: boolean
+                        favourite:
+                          type: boolean
+                        reblog:
+                          type: boolean
+                        mention:
+                          type: boolean
+                        poll:
+                          type: boolean
+      responses:
+        '200':
+          description: Push subscription object
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+        error_description:
+          type: string
+          description: Additional error details
+  responses:
+    Unauthorized:
+      description: Missing or invalid OAuth token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://{instance}/oauth/authorize
+          tokenUrl: https://{instance}/oauth/token
+          scopes:
+            read: Read-only access to account data and timelines
+            write: Write access to post statuses and manage account
+            follow: Manage follows, blocks, and mutes
+            push: Manage Web Push subscriptions
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: OAuth2
+externalDocs:
+  description: Pixelfed Documentation
+  url: https://docs.pixelfed.org/

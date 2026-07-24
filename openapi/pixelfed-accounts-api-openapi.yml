@@ -1,0 +1,920 @@
+openapi: 3.1.0
+info:
+  title: Pixelfed REST Accounts API
+  description: 'Mastodon-compatible REST API for the Pixelfed federated photo-sharing platform. Provides endpoints for accounts, statuses, timelines, media, notifications, search, collections, stories, direct messages, and instance/federation metadata. All authenticated calls use OAuth2 Bearer tokens. Every Pixelfed instance exposes this API independently at its own domain; there is no single central API host.
+
+    '
+  version: '1.1'
+  contact:
+    name: Pixelfed
+    email: hello@pixelfed.org
+    url: https://pixelfed.org
+  license:
+    name: AGPL-3.0
+    url: https://github.com/pixelfed/pixelfed/blob/dev/LICENSE
+  x-logo:
+    url: https://pixelfed.org/img/logo.svg
+servers:
+- url: https://{instance}/api
+  description: A Pixelfed instance
+  variables:
+    instance:
+      default: pixelfed.social
+      description: Hostname of the Pixelfed instance
+security:
+- OAuth2:
+  - read
+  - write
+  - follow
+  - push
+- BearerAuth: []
+tags:
+- name: Accounts
+  description: Account management, follow/block/mute operations
+paths:
+  /v1/verify_credentials:
+    get:
+      operationId: verifyCredentials
+      summary: Verify account credentials
+      description: Returns the authenticated account's information.
+      tags:
+      - Accounts
+      security:
+      - OAuth2:
+        - read
+      - BearerAuth: []
+      responses:
+        '200':
+          description: Authenticated account object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CredentialAccount'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/update_credentials:
+    patch:
+      operationId: updateCredentials
+      summary: Update account credentials
+      description: Updates the authenticated account's display name, bio, avatar, header, etc.
+      tags:
+      - Accounts
+      security:
+      - OAuth2:
+        - write
+      - BearerAuth: []
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                display_name:
+                  type: string
+                  description: Display name to set
+                note:
+                  type: string
+                  description: Profile bio/note
+                avatar:
+                  type: string
+                  format: binary
+                  description: Avatar image file
+                header:
+                  type: string
+                  format: binary
+                  description: Header image file
+                locked:
+                  type: boolean
+                  description: Whether to require manual follow approval
+                source[privacy]:
+                  type: string
+                  enum:
+                  - public
+                  - unlisted
+                  - private
+                  - direct
+                source[sensitive]:
+                  type: boolean
+                source[language]:
+                  type: string
+      responses:
+        '200':
+          description: Updated credential account
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CredentialAccount'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+  /v1/accounts/{id}:
+    get:
+      operationId: getAccount
+      summary: Get account by ID
+      description: Returns information about an account with the given ID.
+      tags:
+      - Accounts
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The ID of the account
+      responses:
+        '200':
+          description: Account object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /v1/accounts/{id}/statuses:
+    get:
+      operationId: getAccountStatuses
+      summary: Get account statuses
+      description: Returns statuses posted by the account.
+      tags:
+      - Accounts
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/limitParam'
+      - $ref: '#/components/parameters/maxIdParam'
+      - $ref: '#/components/parameters/sinceIdParam'
+      - $ref: '#/components/parameters/minIdParam'
+      - name: only_media
+        in: query
+        schema:
+          type: boolean
+      - name: exclude_replies
+        in: query
+        schema:
+          type: boolean
+      - name: exclude_reblogs
+        in: query
+        schema:
+          type: boolean
+      - name: pinned
+        in: query
+        schema:
+          type: boolean
+      - name: tagged
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Array of statuses
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Status'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /v1/accounts/{id}/followers:
+    get:
+      operationId: getAccountFollowers
+      summary: Get account followers
+      description: Returns accounts that follow the given account.
+      tags:
+      - Accounts
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/limitParam'
+      - $ref: '#/components/parameters/maxIdParam'
+      - $ref: '#/components/parameters/sinceIdParam'
+      responses:
+        '200':
+          description: Array of accounts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Account'
+  /v1/accounts/{id}/following:
+    get:
+      operationId: getAccountFollowing
+      summary: Get accounts followed by account
+      description: Returns accounts that the given account follows.
+      tags:
+      - Accounts
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/limitParam'
+      - $ref: '#/components/parameters/maxIdParam'
+      - $ref: '#/components/parameters/sinceIdParam'
+      responses:
+        '200':
+          description: Array of accounts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Account'
+  /v1/accounts/{id}/follow:
+    post:
+      operationId: followAccount
+      summary: Follow account
+      description: Follow the account with the given ID.
+      tags:
+      - Accounts
+      security:
+      - OAuth2:
+        - follow
+      - BearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                reblogs:
+                  type: boolean
+                  description: Receive the target's reblogs in home timeline
+                notify:
+                  type: boolean
+                  description: Receive notifications for new posts from target
+      responses:
+        '200':
+          description: Relationship object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Relationship'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /v1/accounts/{id}/unfollow:
+    post:
+      operationId: unfollowAccount
+      summary: Unfollow account
+      description: Unfollow the account with the given ID.
+      tags:
+      - Accounts
+      security:
+      - OAuth2:
+        - follow
+      - BearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Relationship object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Relationship'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/accounts/{id}/block:
+    post:
+      operationId: blockAccount
+      summary: Block account
+      description: Block the account with the given ID.
+      tags:
+      - Accounts
+      security:
+      - OAuth2:
+        - write
+      - BearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Relationship object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Relationship'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/accounts/{id}/unblock:
+    post:
+      operationId: unblockAccount
+      summary: Unblock account
+      description: Unblock the account with the given ID.
+      tags:
+      - Accounts
+      security:
+      - OAuth2:
+        - write
+      - BearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Relationship object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Relationship'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/accounts/{id}/mute:
+    post:
+      operationId: muteAccount
+      summary: Mute account
+      description: Mute the account with the given ID.
+      tags:
+      - Accounts
+      security:
+      - OAuth2:
+        - write
+      - BearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                notifications:
+                  type: boolean
+                  description: Also mute notifications from this account
+                duration:
+                  type: integer
+                  description: Mute duration in seconds (0 = indefinite)
+      responses:
+        '200':
+          description: Relationship object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Relationship'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/accounts/{id}/unmute:
+    post:
+      operationId: unmuteAccount
+      summary: Unmute account
+      description: Unmute the account with the given ID.
+      tags:
+      - Accounts
+      security:
+      - OAuth2:
+        - write
+      - BearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Relationship object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Relationship'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/accounts/relationships:
+    get:
+      operationId: getRelationships
+      summary: Get relationships with accounts
+      description: Returns relationships between the authenticated account and given accounts.
+      tags:
+      - Accounts
+      security:
+      - OAuth2:
+        - read
+      - BearerAuth: []
+      parameters:
+      - name: id[]
+        in: query
+        required: true
+        schema:
+          type: array
+          items:
+            type: string
+        style: form
+        explode: true
+        description: Account IDs to check relationships with
+      responses:
+        '200':
+          description: Array of relationship objects
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Relationship'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/accounts/search:
+    get:
+      operationId: searchAccounts
+      summary: Search for accounts
+      description: Search for accounts by username, display name, or note.
+      tags:
+      - Accounts
+      security:
+      - OAuth2:
+        - read
+      - BearerAuth: []
+      parameters:
+      - name: q
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Search query
+      - $ref: '#/components/parameters/limitParam'
+      - name: resolve
+        in: query
+        schema:
+          type: boolean
+        description: Attempt to resolve remote accounts via WebFinger
+      - name: following
+        in: query
+        schema:
+          type: boolean
+        description: Limit results to accounts the authenticated user follows
+      responses:
+        '200':
+          description: Array of accounts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Account'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/accounts/lookup:
+    get:
+      operationId: lookupAccount
+      summary: Look up account by username
+      description: Look up an account by its username without needing its ID.
+      tags:
+      - Accounts
+      parameters:
+      - name: acct
+        in: query
+        required: true
+        schema:
+          type: string
+        description: The username (local) or username@domain (remote)
+      responses:
+        '200':
+          description: Account object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    MediaAttachment:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - unknown
+          - image
+          - gifv
+          - video
+          - audio
+        url:
+          type: string
+          format: uri
+          nullable: true
+        preview_url:
+          type: string
+          format: uri
+          nullable: true
+        remote_url:
+          type: string
+          format: uri
+          nullable: true
+        meta:
+          type: object
+        description:
+          type: string
+          nullable: true
+        blurhash:
+          type: string
+          nullable: true
+    Tag:
+      type: object
+      properties:
+        name:
+          type: string
+        url:
+          type: string
+          format: uri
+        history:
+          type: array
+          items:
+            type: object
+    Poll:
+      type: object
+      properties:
+        id:
+          type: string
+        expires_at:
+          type: string
+          format: date-time
+          nullable: true
+        expired:
+          type: boolean
+        multiple:
+          type: boolean
+        votes_count:
+          type: integer
+        options:
+          type: array
+          items:
+            type: object
+            properties:
+              title:
+                type: string
+              votes_count:
+                type: integer
+                nullable: true
+        voted:
+          type: boolean
+    Relationship:
+      type: object
+      properties:
+        id:
+          type: string
+        following:
+          type: boolean
+        showing_reblogs:
+          type: boolean
+        notifying:
+          type: boolean
+        followed_by:
+          type: boolean
+        blocking:
+          type: boolean
+        blocked_by:
+          type: boolean
+        muting:
+          type: boolean
+        muting_notifications:
+          type: boolean
+        requested:
+          type: boolean
+        domain_blocking:
+          type: boolean
+        endorsed:
+          type: boolean
+    Account:
+      type: object
+      description: Represents a Pixelfed / Mastodon-compatible account
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the account
+          example: '123456789'
+        username:
+          type: string
+          description: The account's username (local part)
+          example: alice
+        acct:
+          type: string
+          description: 'Webfinger account URI. Equal to username for local accounts, or username@domain for remote accounts.
+
+            '
+          example: alice@pixelfed.social
+        display_name:
+          type: string
+          description: Display name of the account
+          example: Alice
+        locked:
+          type: boolean
+          description: Whether the account requires manual follow approval
+        created_at:
+          type: string
+          format: date-time
+        note:
+          type: string
+          description: Biography / profile note (HTML)
+        url:
+          type: string
+          format: uri
+          description: Profile URL
+        avatar:
+          type: string
+          format: uri
+          description: URL to the account's avatar image
+        avatar_static:
+          type: string
+          format: uri
+          description: URL to a static version of the avatar
+        header:
+          type: string
+          format: uri
+          description: URL to the account's header image
+        header_static:
+          type: string
+          format: uri
+        followers_count:
+          type: integer
+        following_count:
+          type: integer
+        statuses_count:
+          type: integer
+        emojis:
+          type: array
+          items:
+            $ref: '#/components/schemas/Emoji'
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/Field'
+    CredentialAccount:
+      allOf:
+      - $ref: '#/components/schemas/Account'
+      - type: object
+        properties:
+          source:
+            type: object
+            properties:
+              privacy:
+                type: string
+                enum:
+                - public
+                - unlisted
+                - private
+                - direct
+              sensitive:
+                type: boolean
+              language:
+                type: string
+              note:
+                type: string
+    Emoji:
+      type: object
+      properties:
+        shortcode:
+          type: string
+        url:
+          type: string
+          format: uri
+        static_url:
+          type: string
+          format: uri
+        visible_in_picker:
+          type: boolean
+    PreviewCard:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+        title:
+          type: string
+        description:
+          type: string
+        type:
+          type: string
+          enum:
+          - link
+          - photo
+          - video
+          - rich
+        image:
+          type: string
+          format: uri
+          nullable: true
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+        error_description:
+          type: string
+          description: Additional error details
+    Status:
+      type: object
+      description: Represents a status (post) in the Pixelfed / Mastodon API
+      properties:
+        id:
+          type: string
+          example: '987654321'
+        created_at:
+          type: string
+          format: date-time
+        in_reply_to_id:
+          type: string
+          nullable: true
+        in_reply_to_account_id:
+          type: string
+          nullable: true
+        sensitive:
+          type: boolean
+        spoiler_text:
+          type: string
+        visibility:
+          type: string
+          enum:
+          - public
+          - unlisted
+          - private
+          - direct
+        language:
+          type: string
+          nullable: true
+        uri:
+          type: string
+          format: uri
+        url:
+          type: string
+          format: uri
+          nullable: true
+        replies_count:
+          type: integer
+        reblogs_count:
+          type: integer
+        favourites_count:
+          type: integer
+        content:
+          type: string
+          description: HTML-encoded content of the status
+        reblog:
+          nullable: true
+          allOf:
+          - $ref: '#/components/schemas/Status'
+        application:
+          type: object
+          nullable: true
+          properties:
+            name:
+              type: string
+            website:
+              type: string
+              format: uri
+              nullable: true
+        account:
+          $ref: '#/components/schemas/Account'
+        media_attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/MediaAttachment'
+        mentions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Mention'
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+        emojis:
+          type: array
+          items:
+            $ref: '#/components/schemas/Emoji'
+        card:
+          nullable: true
+          $ref: '#/components/schemas/PreviewCard'
+        poll:
+          nullable: true
+          $ref: '#/components/schemas/Poll'
+        favourited:
+          type: boolean
+        reblogged:
+          type: boolean
+        muted:
+          type: boolean
+        bookmarked:
+          type: boolean
+        pinned:
+          type: boolean
+    Field:
+      type: object
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+        verified_at:
+          type: string
+          format: date-time
+          nullable: true
+    Mention:
+      type: object
+      properties:
+        id:
+          type: string
+        username:
+          type: string
+        acct:
+          type: string
+        url:
+          type: string
+          format: uri
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnprocessableEntity:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid OAuth token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    minIdParam:
+      name: min_id
+      in: query
+      description: Return results immediately newer than this ID
+      schema:
+        type: string
+    limitParam:
+      name: limit
+      in: query
+      description: Maximum number of results to return (default 20, max 80)
+      schema:
+        type: integer
+        default: 20
+        maximum: 80
+    maxIdParam:
+      name: max_id
+      in: query
+      description: Return results older than this ID
+      schema:
+        type: string
+    sinceIdParam:
+      name: since_id
+      in: query
+      description: Return results newer than this ID
+      schema:
+        type: string
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://{instance}/oauth/authorize
+          tokenUrl: https://{instance}/oauth/token
+          scopes:
+            read: Read-only access to account data and timelines
+            write: Write access to post statuses and manage account
+            follow: Manage follows, blocks, and mutes
+            push: Manage Web Push subscriptions
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: OAuth2
+externalDocs:
+  description: Pixelfed Documentation
+  url: https://docs.pixelfed.org/
