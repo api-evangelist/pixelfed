@@ -468,6 +468,9 @@ maintainers:
     X-twitter: kinlane
     email: kin@apievangelist.com
 common:
+  - type: License
+    name: AGPL-3.0
+    url: https://github.com/pixelfed/pixelfed/blob/dev/LICENSE
   - type: AgenticAccess
     url: agentic-access/pixelfed-agentic-access.yml
   - type: DomainSecurity
