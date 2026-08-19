@@ -1,0 +1,63 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Pixelfed REST Accounts Instance API",
+    "version": "1.1"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://{instance}/oauth/authorize",
+      "accessTokenUrl": "https://{instance}/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Instance",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get instance info (v1)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}/api/v1/instance"
+          },
+          "docs": "Returns general information about the instance."
+        },
+        {
+          "info": {
+            "name": "Get instance info (v2)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}/api/v2/instance"
+          },
+          "docs": "Returns extended instance information in the Mastodon v2 format."
+        },
+        {
+          "info": {
+            "name": "Get NodeInfo 2.0",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}/api/nodeinfo/2.0.json"
+          },
+          "docs": "Returns NodeInfo 2.0 document describing the instance software and usage."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

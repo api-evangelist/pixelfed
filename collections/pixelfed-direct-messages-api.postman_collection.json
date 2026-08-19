@@ -1,0 +1,258 @@
+{
+  "item": [
+    {
+      "id": "529edf1e-ad62-4d37-a889-1080971b256c",
+      "name": "Direct Messages",
+      "description": {
+        "content": "Pixelfed-specific direct messaging (v1.1)",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c3e5ffb6-ff2c-458d-bc5a-695af6819ac6",
+          "name": "Get direct messages",
+          "request": {
+            "name": "Get direct messages",
+            "description": {
+              "content": "Returns direct message conversations (Pixelfed-specific).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1.1",
+                "direct"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20",
+                  "description": "Maximum number of results to return (default 20, max 80)"
+                },
+                {
+                  "disabled": false,
+                  "key": "max_id",
+                  "value": "<string>",
+                  "description": "Return results older than this ID"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "Hostname of the Pixelfed instance",
+                  "type": "any",
+                  "value": "{{instance}}",
+                  "key": "instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write follow push"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://{instance}/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://{instance}/oauth/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "be5620da-904f-4387-a09d-0096294ef615",
+              "name": "Array of direct message objects",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1.1",
+                    "direct"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "max_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Hostname of the Pixelfed instance",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7cd63041-df06-4e6c-8749-cf84fe9bb828",
+              "name": "Missing or invalid OAuth token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1.1",
+                    "direct"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "max_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Hostname of the Pixelfed instance",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"error_description\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Hostname of the Pixelfed instance",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "pixelfed.social",
+      "key": "instance"
+    },
+    {
+      "type": "string",
+      "value": "https://{{instance}}/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "read write follow push"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://{instance}/oauth/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://{instance}/oauth/authorize"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "8beb0d61-b3bb-4e14-b4c0-65bb61a14934",
+    "name": "Pixelfed REST Accounts Direct Messages API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Mastodon-compatible REST API for the Pixelfed federated photo-sharing platform. Provides endpoints for accounts, statuses, timelines, media, notifications, search, collections, stories, direct messages, and instance/federation metadata. All authenticated calls use OAuth2 Bearer tokens. Every Pixelfed instance exposes this API independently at its own domain; there is no single central API host.\n\n\nContact Support:\n Name: Pixelfed\n Email: hello@pixelfed.org",
+      "type": "text/plain"
+    }
+  }
+}

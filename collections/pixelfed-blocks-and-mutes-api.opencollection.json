@@ -1,0 +1,153 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Pixelfed REST Accounts Blocks and Mutes API",
+    "version": "1.1"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://{instance}/oauth/authorize",
+      "accessTokenUrl": "https://{instance}/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Blocks and Mutes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get blocked accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}/api/v1/blocks",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return (default 20, max 80)"
+              },
+              {
+                "name": "max_id",
+                "value": "",
+                "type": "query",
+                "description": "Return results older than this ID"
+              },
+              {
+                "name": "since_id",
+                "value": "",
+                "type": "query",
+                "description": "Return results newer than this ID"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://{instance}/oauth/authorize",
+              "accessTokenUrl": "https://{instance}/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Returns accounts blocked by the authenticated account."
+        },
+        {
+          "info": {
+            "name": "Get muted accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}/api/v1/mutes",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return (default 20, max 80)"
+              },
+              {
+                "name": "max_id",
+                "value": "",
+                "type": "query",
+                "description": "Return results older than this ID"
+              },
+              {
+                "name": "since_id",
+                "value": "",
+                "type": "query",
+                "description": "Return results newer than this ID"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://{instance}/oauth/authorize",
+              "accessTokenUrl": "https://{instance}/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Returns accounts muted by the authenticated account."
+        },
+        {
+          "info": {
+            "name": "Get blocked domains",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}/api/v1/domain_blocks",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return (default 20, max 80)"
+              },
+              {
+                "name": "max_id",
+                "value": "",
+                "type": "query",
+                "description": "Return results older than this ID"
+              },
+              {
+                "name": "since_id",
+                "value": "",
+                "type": "query",
+                "description": "Return results newer than this ID"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://{instance}/oauth/authorize",
+              "accessTokenUrl": "https://{instance}/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Returns domains blocked by the authenticated account."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

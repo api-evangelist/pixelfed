@@ -1,0 +1,227 @@
+{
+  "item": [
+    {
+      "id": "f2110a79-4214-4de3-91b4-48f186ee2895",
+      "name": "Stories",
+      "description": {
+        "content": "Pixelfed-specific ephemeral stories (v1.1)",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d108b223-670e-4ba3-9b62-d1db01f8e343",
+          "name": "Get stories",
+          "request": {
+            "name": "Get stories",
+            "description": {
+              "content": "Returns stories from followed accounts (Pixelfed-specific).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1.1",
+                "stories"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Hostname of the Pixelfed instance",
+                  "type": "any",
+                  "value": "{{instance}}",
+                  "key": "instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write follow push"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://{instance}/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://{instance}/oauth/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8fd3b375-73db-49fe-80af-6132e0c4776d",
+              "name": "Array of story objects",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1.1",
+                    "stories"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Hostname of the Pixelfed instance",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "baf874d3-4ba5-4bd7-92e4-83292f39f58e",
+              "name": "Missing or invalid OAuth token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1.1",
+                    "stories"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Hostname of the Pixelfed instance",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"error_description\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Hostname of the Pixelfed instance",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "pixelfed.social",
+      "key": "instance"
+    },
+    {
+      "type": "string",
+      "value": "https://{{instance}}/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "read write follow push"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://{instance}/oauth/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://{instance}/oauth/authorize"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "851368f2-fd23-4228-b47a-35f20c94614d",
+    "name": "Pixelfed REST Accounts Stories API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Mastodon-compatible REST API for the Pixelfed federated photo-sharing platform. Provides endpoints for accounts, statuses, timelines, media, notifications, search, collections, stories, direct messages, and instance/federation metadata. All authenticated calls use OAuth2 Bearer tokens. Every Pixelfed instance exposes this API independently at its own domain; there is no single central API host.\n\n\nContact Support:\n Name: Pixelfed\n Email: hello@pixelfed.org",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,339 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Pixelfed REST Accounts Statuses API",
+    "version": "1.1"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://{instance}/oauth/authorize",
+      "accessTokenUrl": "https://{instance}/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Statuses",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Post a new status",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{instance}/api/v1/statuses",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://{instance}/oauth/authorize",
+              "accessTokenUrl": "https://{instance}/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Publish a new status. Media attachments, polls, content warnings, and visibility settings are all supported.\n"
+        },
+        {
+          "info": {
+            "name": "Get a single status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}/api/v1/statuses/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the status with the given ID."
+        },
+        {
+          "info": {
+            "name": "Delete a status",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{instance}/api/v1/statuses/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://{instance}/oauth/authorize",
+              "accessTokenUrl": "https://{instance}/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Deletes a status authored by the authenticated account."
+        },
+        {
+          "info": {
+            "name": "Get status context (thread)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}/api/v1/statuses/:id/context",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns ancestors and descendants of the status in the thread."
+        },
+        {
+          "info": {
+            "name": "Get accounts that favourited the status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}/api/v1/statuses/:id/favourited_by",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return (default 20, max 80)"
+              }
+            ]
+          },
+          "docs": "Get accounts that favourited the status"
+        },
+        {
+          "info": {
+            "name": "Get accounts that reblogged the status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}/api/v1/statuses/:id/reblogged_by",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return (default 20, max 80)"
+              }
+            ]
+          },
+          "docs": "Get accounts that reblogged the status"
+        },
+        {
+          "info": {
+            "name": "Favourite a status",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{instance}/api/v1/statuses/:id/favourite",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://{instance}/oauth/authorize",
+              "accessTokenUrl": "https://{instance}/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Favourite a status"
+        },
+        {
+          "info": {
+            "name": "Undo favourite on a status",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{instance}/api/v1/statuses/:id/unfavourite",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://{instance}/oauth/authorize",
+              "accessTokenUrl": "https://{instance}/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Undo favourite on a status"
+        },
+        {
+          "info": {
+            "name": "Reblog a status",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{instance}/api/v1/statuses/:id/reblog",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://{instance}/oauth/authorize",
+              "accessTokenUrl": "https://{instance}/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Reblog a status"
+        },
+        {
+          "info": {
+            "name": "Undo reblog of a status",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{instance}/api/v1/statuses/:id/unreblog",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://{instance}/oauth/authorize",
+              "accessTokenUrl": "https://{instance}/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Undo reblog of a status"
+        },
+        {
+          "info": {
+            "name": "Bookmark a status",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{instance}/api/v1/statuses/:id/bookmark",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://{instance}/oauth/authorize",
+              "accessTokenUrl": "https://{instance}/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Bookmark a status"
+        },
+        {
+          "info": {
+            "name": "Remove bookmark from a status",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{instance}/api/v1/statuses/:id/unbookmark",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://{instance}/oauth/authorize",
+              "accessTokenUrl": "https://{instance}/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Remove bookmark from a status"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

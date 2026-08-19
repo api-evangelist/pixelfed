@@ -1,0 +1,170 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Pixelfed REST Accounts Notifications API",
+    "version": "1.1"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://{instance}/oauth/authorize",
+      "accessTokenUrl": "https://{instance}/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Notifications",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List notifications",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}/api/v1/notifications",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return (default 20, max 80)"
+              },
+              {
+                "name": "max_id",
+                "value": "",
+                "type": "query",
+                "description": "Return results older than this ID"
+              },
+              {
+                "name": "since_id",
+                "value": "",
+                "type": "query",
+                "description": "Return results newer than this ID"
+              },
+              {
+                "name": "min_id",
+                "value": "",
+                "type": "query",
+                "description": "Return results immediately newer than this ID"
+              },
+              {
+                "name": "types[]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "exclude_types[]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by account"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://{instance}/oauth/authorize",
+              "accessTokenUrl": "https://{instance}/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Returns notifications for the authenticated account."
+        },
+        {
+          "info": {
+            "name": "Get a single notification",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}/api/v1/notifications/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://{instance}/oauth/authorize",
+              "accessTokenUrl": "https://{instance}/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get a single notification"
+        },
+        {
+          "info": {
+            "name": "Clear all notifications",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{instance}/api/v1/notifications/clear",
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://{instance}/oauth/authorize",
+              "accessTokenUrl": "https://{instance}/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Clears all notifications for the authenticated account."
+        },
+        {
+          "info": {
+            "name": "Dismiss a single notification",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{instance}/api/v1/notifications/:id/dismiss",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://{instance}/oauth/authorize",
+              "accessTokenUrl": "https://{instance}/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Dismiss a single notification"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

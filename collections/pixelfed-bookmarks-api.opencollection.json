@@ -1,0 +1,77 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Pixelfed REST Accounts Bookmarks API",
+    "version": "1.1"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://{instance}/oauth/authorize",
+      "accessTokenUrl": "https://{instance}/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Bookmarks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get bookmarked statuses",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}/api/v1/bookmarks",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return (default 20, max 80)"
+              },
+              {
+                "name": "max_id",
+                "value": "",
+                "type": "query",
+                "description": "Return results older than this ID"
+              },
+              {
+                "name": "since_id",
+                "value": "",
+                "type": "query",
+                "description": "Return results newer than this ID"
+              },
+              {
+                "name": "min_id",
+                "value": "",
+                "type": "query",
+                "description": "Return results immediately newer than this ID"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://{instance}/oauth/authorize",
+              "accessTokenUrl": "https://{instance}/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Returns statuses bookmarked by the authenticated account."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

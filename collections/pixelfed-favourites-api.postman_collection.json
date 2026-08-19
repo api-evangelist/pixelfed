@@ -1,0 +1,272 @@
+{
+  "item": [
+    {
+      "id": "d36c01a3-2836-40b7-8e5c-6e00e07e397f",
+      "name": "Favourites",
+      "description": {
+        "content": "Favourited statuses",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "33fc1a48-bdbe-4bd9-93fe-4d1fc0711603",
+          "name": "Get favourited statuses",
+          "request": {
+            "name": "Get favourited statuses",
+            "description": {
+              "content": "Returns statuses favourited by the authenticated account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "favourites"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20",
+                  "description": "Maximum number of results to return (default 20, max 80)"
+                },
+                {
+                  "disabled": false,
+                  "key": "max_id",
+                  "value": "<string>",
+                  "description": "Return results older than this ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "min_id",
+                  "value": "<string>",
+                  "description": "Return results immediately newer than this ID"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "Hostname of the Pixelfed instance",
+                  "type": "any",
+                  "value": "{{instance}}",
+                  "key": "instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write follow push"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://{instance}/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://{instance}/oauth/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "625fb500-15ab-4078-a828-b5539f760709",
+              "name": "Array of statuses",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "favourites"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "max_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "min_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Hostname of the Pixelfed instance",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"987654321\",\n    \"created_at\": \"2015-04-10T16:58:14.220Z\",\n    \"in_reply_to_id\": \"string\",\n    \"in_reply_to_account_id\": \"string\",\n    \"sensitive\": true,\n    \"spoiler_text\": \"string\",\n    \"visibility\": \"public\",\n    \"language\": \"string\",\n    \"uri\": \"https://FYNfWWLa.bsccm1sxcpVQQoNIzwfy++Vb2OqnE02-jxPUY63+MsXk4+rCi8rzgqLwMXhLfRKDSS8+rtck9RpkHeRPi7W\",\n    \"url\": \"http://xMhaZceeVxY.cuAPHHjoOeDCnYlAWvTqFdwbiuVwoP93pT\",\n    \"replies_count\": 9822,\n    \"reblogs_count\": 1241,\n    \"favourites_count\": 7354,\n    \"content\": \"string\",\n    \"reblog\": {\n      \"nullable\": true,\n      \"value\": \"<Circular reference to #/components/schemas/Status detected>\"\n    },\n    \"application\": {\n      \"name\": \"string\",\n      \"website\": \"http://UzeyLePBxjOHNtslbPRa.ugfrkOALJN\"\n    },\n    \"account\": {\n      \"id\": \"123456789\",\n      \"username\": \"alice\",\n      \"acct\": \"alice@pixelfed.social\",\n      \"display_name\": \"Alice\",\n      \"locked\": true,\n      \"created_at\": \"2013-01-02T20:27:43.460Z\",\n      \"note\": \"string\",\n      \"url\": \"http://upIFvHXTkQBY.ffaIa82cDULOYxKvWdTtw4uxkukHcTI6,G9msQXC\",\n      \"avatar\": \"https://ZVheMBYXKUBvFDcAIhAObqRTHcJ.hurva9dzMRcvhgsmJ-Ux9DdT1.YRhjTyCLRlKUlOQ0\",\n      \"avatar_static\": \"http://voBBMvKazItxSQtcRB.bgdOOD6NloQQGnw16bUFgD+-F1aPEZosc1BSjyDAA2pb\",\n      \"header\": \"http://EjVSms.gryGfxEhAkd6oK4Cw6\",\n      \"header_static\": \"http://DbXUZKRnTlibixDVRI.glzho36koWUAHFVSBWfm7v8JnMTrj9I\",\n      \"followers_count\": 9543,\n      \"following_count\": 4779,\n      \"statuses_count\": 5784,\n      \"emojis\": [\n        {\n          \"shortcode\": \"string\",\n          \"url\": \"https://YAlRirABHdqsIIvvVCrxTHsU.iezqAi1lwBpkwYfzF,bpsl\",\n          \"static_url\": \"https://qmQImsjoXpMatajIGY.zokQSBwJjdKHf348tp\",\n          \"visible_in_picker\": true\n        },\n        {\n          \"shortcode\": \"string\",\n          \"url\": \"http://EJVVyLpAkQKo.ana\",\n          \"static_url\": \"http://gfMxlmUpINhxtou.zuamyDBsEtOG04eePlh1lCZC6l.bj--Ml1TJNVEVhYh2Kh1IRlDqufrMYAnT\",\n          \"visible_in_picker\": false\n        }\n      ],\n      \"fields\": [\n        {\n          \"name\": \"string\",\n          \"value\": \"string\",\n          \"verified_at\": \"1954-04-20T23:25:17.234Z\"\n        },\n        {\n          \"name\": \"string\",\n          \"value\": \"string\",\n          \"verified_at\": \"1967-03-17T11:35:36.245Z\"\n        }\n      ]\n    },\n    \"media_attachments\": [\n      {\n        \"id\": \"string\",\n        \"type\": \"image\",\n        \"url\": \"https://kzVlnqPnWCwiLXOJ.zpjoYglsdTR9-LzMR5n2E1bOXgkD2.2N2JPa6i\",\n        \"preview_url\": \"https://FQmktgxyZXiUcKsPLwPWOkxEaRdw.neviDSwEjU\",\n        \"remote_url\": \"https://tenBsNeod.lfcI1j3vDg0kLdf-kd.ZJP,lLQ3ROg2s5MHSuuuOYFeh1i2AMqt,gJ,-HqOvQU9MxihPIwSlGEG\",\n        \"meta\": {},\n        \"description\": \"string\",\n        \"blurhash\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"type\": \"gifv\",\n        \"url\": \"http://vWmaesPXMAUiLdfapVzWCzyZ.sbwj6TCoBrnefZ5DU.uA.ZH6VTWifLew6xC7O.oic90EF,vBttpRwclCTMmyW8XapvmKVq\",\n        \"preview_url\": \"http://tQPYgXVPIAEkFnIefewmTHASHH.gbpne\",\n        \"remote_url\": \"http://LqrdfmAvKMN.mdufYOa-Tdip6r9DoMRRbFJRHBtHl+4SH8+wA.QdZooY7POTMuKkE\",\n        \"meta\": {},\n        \"description\": \"string\",\n        \"blurhash\": \"string\"\n      }\n    ],\n    \"mentions\": [\n      {\n        \"id\": \"string\",\n        \"username\": \"string\",\n        \"acct\": \"string\",\n        \"url\": \"http://SzswPlzfTq.crjiFZ5OjRZga8-tKX7Q6X6B.NwdGiFtQr2qdrsV\"\n      },\n      {\n        \"id\": \"string\",\n        \"username\": \"string\",\n        \"acct\": \"string\",\n        \"url\": \"http://mzjTYAVTwSwlqCTwPftzeZZf.zjgxvDA4sqoj4ed+Mx4zFfiPWhZI7Q2bN-tfanAw4hfHDPNz0kpw2E-snHt\"\n      }\n    ],\n    \"tags\": [\n      {\n        \"name\": \"string\",\n        \"url\": \"https://nPny.vpJOUjzw.u-9hdDYUIzqxP6\"\n      },\n      {\n        \"name\": \"string\",\n        \"url\": \"http://sgkwvRkXHWD.retuGoiIxj043E92LGA4S1xRRI17Nd\"\n      }\n    ],\n    \"emojis\": [\n      {\n        \"shortcode\": \"string\",\n        \"url\": \"https://xcf.seGhWN9J57.KGdPJXg+7-zResrGALCNvPDWEFQ,yWM\",\n        \"static_url\": \"http://vnPhbBmwhhWmeuLmHbPJuIIDjBBpE.jgif9OksOnJG.dBf2utj-1UmfpWe\",\n        \"visible_in_picker\": false\n      },\n      {\n        \"shortcode\": \"string\",\n        \"url\": \"https://aqiFXCCTx.dmhok-o5gSpz.8kQs0bVeqwOYCznf+G-MriQdf0cls\",\n        \"static_url\": \"https://dVFGnbssTGBFmmZhyALMcnJz.fiawDdP8yjp5V.fcb,ws8L0jTEgZ1vW2ddHjhadlY7yzLXNu\",\n        \"visible_in_picker\": true\n      }\n    ],\n    \"card\": {\n      \"url\": \"https://YcrUfmMYqSnPjeFbcwop.ajO2FKoQHoiHjqSkVjT5Cdi7-lIRmx-dYKkmiVTE7uzOc0ak9TUo3MvDYtKjFa\",\n      \"title\": \"string\",\n      \"description\": \"string\",\n      \"type\": \"rich\",\n      \"image\": \"https://xinJSOBSfmehrJFzZcPLVqJw.ewyfzscR566RdGoDo3OgoI-8QFAiNB0JODhltg15GE7\"\n    },\n    \"poll\": {\n      \"id\": \"string\",\n      \"expires_at\": \"1950-08-19T03:52:35.347Z\",\n      \"expired\": false,\n      \"multiple\": true,\n      \"votes_count\": 5201,\n      \"options\": [\n        {\n          \"title\": \"string\",\n          \"votes_count\": 210\n        },\n        {\n          \"title\": \"string\",\n          \"votes_count\": 998\n        }\n      ],\n      \"voted\": true\n    },\n    \"favourited\": true,\n    \"reblogged\": false,\n    \"muted\": false,\n    \"bookmarked\": true,\n    \"pinned\": false\n  },\n  {\n    \"id\": \"987654321\",\n    \"created_at\": \"2024-06-21T03:03:22.358Z\",\n    \"in_reply_to_id\": \"string\",\n    \"in_reply_to_account_id\": \"string\",\n    \"sensitive\": false,\n    \"spoiler_text\": \"string\",\n    \"visibility\": \"direct\",\n    \"language\": \"string\",\n    \"uri\": \"https://kPAhApTttScasMzLSqedfWxf.mxXDBywn59s\",\n    \"url\": \"http://Y.vlmstQh5ALCp,CVFtMHr8ViyzpGOBXDkIrujXelXAMdc-lNh+,\",\n    \"replies_count\": 260,\n    \"reblogs_count\": 6259,\n    \"favourites_count\": 953,\n    \"content\": \"string\",\n    \"reblog\": {\n      \"nullable\": true,\n      \"value\": \"<Circular reference to #/components/schemas/Status detected>\"\n    },\n    \"application\": {\n      \"name\": \"string\",\n      \"website\": \"https://XuwlNUq.zfrEeu3qg5sADlm1Md,I\"\n    },\n    \"account\": {\n      \"id\": \"123456789\",\n      \"username\": \"alice\",\n      \"acct\": \"alice@pixelfed.social\",\n      \"display_name\": \"Alice\",\n      \"locked\": false,\n      \"created_at\": \"2021-12-08T00:47:35.877Z\",\n      \"note\": \"string\",\n      \"url\": \"http://uwzPrVNKPvgjnlpeIUnqF.wkpqy,tXR1uW7hdCh7Z\",\n      \"avatar\": \"https://KWKbFzwCbCmmpnbYMBBlMoCybiARykuQ.imzbzuARIfBcLWrRT-yDyeUqKX1wq7Ia.og\",\n      \"avatar_static\": \"http://PEuhmoIICSfqbytkXoZufOjtjV.mhbuzMyYiELbXS-a7OdbIFbdCggIJqafgeaTgQiV41owCF3\",\n      \"header\": \"https://J.ifszz2-mRpNsraAueDw3I\",\n      \"header_static\": \"http://VWIcdprkmIrQKdyGvnROhGBMNnrc.xjepIVUSjaVjZfG7bwEXGtOUDrCe0mSu-o0djNwmpVl0dutOyUX\",\n      \"followers_count\": 1175,\n      \"following_count\": 7760,\n      \"statuses_count\": 6699,\n      \"emojis\": [\n        {\n          \"shortcode\": \"string\",\n          \"url\": \"http://eLHKNbrKdoSAcOlwAAVbObqJrjGZzOmMz.mxY32ZoT\",\n          \"static_url\": \"https://DM.trncJ4HHURgvf.nqFCsmYWJ\",\n          \"visible_in_picker\": true\n        },\n        {\n          \"shortcode\": \"string\",\n          \"url\": \"http://nGbUVdpvofPdyXaB.gtxaAXtjszV0lsbk1aeSf,AwatkMoczMVMi4ToapaH6GBXAKN.YNPuFy+tynd,R\",\n          \"static_url\": \"https://PPWCFoPKRIXdgbyJhuvikzb.jdxwOTxjl2KmqrC1jX.O++PyS\",\n          \"visible_in_picker\": false\n        }\n      ],\n      \"fields\": [\n        {\n          \"name\": \"string\",\n          \"value\": \"string\",\n          \"verified_at\": \"1951-01-21T19:59:11.159Z\"\n        },\n        {\n          \"name\": \"string\",\n          \"value\": \"string\",\n          \"verified_at\": \"2015-09-03T11:51:04.973Z\"\n        }\n      ]\n    },\n    \"media_attachments\": [\n      {\n        \"id\": \"string\",\n        \"type\": \"video\",\n        \"url\": \"https://xrTyRhKl.kscaFnmu8eTrR2PpuavYCmaYbtkJvU0Ej7cObf-JTAMDoeFi\",\n        \"preview_url\": \"http://ldKRZGiD.czgCQFoF7EHwRGBDT.SKPMiFhSdzQadIaf4GJukuho13ZTQy\",\n        \"remote_url\": \"http://pqtFmlUCZHklGOpz.vejAw.TTexLiPMdc7LA\",\n        \"meta\": {},\n        \"description\": \"string\",\n        \"blurhash\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"type\": \"image\",\n        \"url\": \"https://oLjPQYKGpMCOjS.fjw6Z,8hkCthWKfsOYbFpnU3XAJ73teMV7LC2Gk96\",\n        \"preview_url\": \"https://KksYzcXZNRQHYmiEcaAJqTjKadxSLJvjF.vpxyPRjA+CeqGZp2HNbOAAIHNzcdE3W.R13dJyNhimWnN9uB8\",\n        \"remote_url\": \"http://IUDE.snbdkAqJ-JqVbdkhygQrVCxHZ+.8OpFoCfo0IAC4xspo215gvvXZlk,QLQMDSexreS8Pwnd1Iz2\",\n        \"meta\": {},\n        \"description\": \"string\",\n        \"blurhash\": \"string\"\n      }\n    ],\n    \"mentions\": [\n      {\n        \"id\": \"string\",\n        \"username\": \"string\",\n        \"acct\": \"string\",\n        \"url\": \"https://lEXCSqE.uduv5l0t-fnHuZ3wLKLzvFRRXEMCwT1gxtNCdc9xWzm0LF5u-r8M5XuGfmMszrIlrYZIIYiEEk\"\n      },\n      {\n        \"id\": \"string\",\n        \"username\": \"string\",\n        \"acct\": \"string\",\n        \"url\": \"https://lSStrXHQY.nvzWQFK+6sJ\"\n      }\n    ],\n    \"tags\": [\n      {\n        \"name\": \"string\",\n        \"url\": \"https://WxjrTY.jpH39HQx6euwGYNgY0PKLvv2G4kky1iWdWfyRihxgy\"\n      },\n      {\n        \"name\": \"string\",\n        \"url\": \"https://lZClHsrsuMkpnaVGwUKACXTO.sneBqSu78uIL,1oMCXjF3BXeRxpFf6LlkQ0gAOxLwBV+roKGtd16n-8YqIciyI,R2xO7\"\n      }\n    ],\n    \"emojis\": [\n      {\n        \"shortcode\": \"string\",\n        \"url\": \"https://KwcoFJYssXvAuHUCqcWBqSQfA.tsxn-BrX14ntBxdiKP.ag6vuVxMK+dJmBzEkUcRAEOl,7zAsZjrSnJ0ftUZqVYxGFJOWJT8EgcRSF\",\n        \"static_url\": \"http://iwyXvSPBwqm.wbvvSO-SJtJo9F7Ivml3mjO75YaE2fygGfo8GUdKWZ9nAq6DBd3hYTs2NztzD+ezr-i\",\n        \"visible_in_picker\": true\n      },\n      {\n        \"shortcode\": \"string\",\n        \"url\": \"http://bPYuahJvcOOuvEzBoETUjv.oxcErGkte9GjSzEomwnm2.T.O46f+dLul-,fd1yjmranPrZn9zFZRmvI2JWEh5h5fU.Ez6\",\n        \"static_url\": \"https://RbB.vtLIrYdmJ9xe+yN3hkw6rmibbOUwVshPHPs4Aoudwk5bFKCuD\",\n        \"visible_in_picker\": false\n      }\n    ],\n    \"card\": {\n      \"url\": \"http://avKaBhkOhHpgXOrHjAQAAPiRfeQJAYSr.bsCOq8M4+kdpM,+-SEYtHaZjYdu8YLaA2vM26os9,BfM8qiWeYoUyvwgVIo\",\n      \"title\": \"string\",\n      \"description\": \"string\",\n      \"type\": \"photo\",\n      \"image\": \"https://PBcryBruwSNtFKcAIKYITDNRwPAFcBeXK.srsvVzj1AfVBU4ZbYJiYaMd+24OxUd+Qm6TNXeFJaMp7wY+3OiBzPTyUB9Y3l3FaAYAZWNz3AL\"\n    },\n    \"poll\": {\n      \"id\": \"string\",\n      \"expires_at\": \"1957-11-26T20:32:56.111Z\",\n      \"expired\": true,\n      \"multiple\": true,\n      \"votes_count\": 373,\n      \"options\": [\n        {\n          \"title\": \"string\",\n          \"votes_count\": 1662\n        },\n        {\n          \"title\": \"string\",\n          \"votes_count\": 6210\n        }\n      ],\n      \"voted\": false\n    },\n    \"favourited\": false,\n    \"reblogged\": false,\n    \"muted\": true,\n    \"bookmarked\": true,\n    \"pinned\": false\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "59c1b7ef-0fe2-4963-8b4f-f071965ea04e",
+              "name": "Missing or invalid OAuth token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "favourites"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "max_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "min_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Hostname of the Pixelfed instance",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"error_description\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Hostname of the Pixelfed instance",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "pixelfed.social",
+      "key": "instance"
+    },
+    {
+      "type": "string",
+      "value": "https://{{instance}}/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "read write follow push"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://{instance}/oauth/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://{instance}/oauth/authorize"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "3f46e4db-8b00-48c6-ac03-5975f22cf7e6",
+    "name": "Pixelfed REST Accounts Favourites API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Mastodon-compatible REST API for the Pixelfed federated photo-sharing platform. Provides endpoints for accounts, statuses, timelines, media, notifications, search, collections, stories, direct messages, and instance/federation metadata. All authenticated calls use OAuth2 Bearer tokens. Every Pixelfed instance exposes this API independently at its own domain; there is no single central API host.\n\n\nContact Support:\n Name: Pixelfed\n Email: hello@pixelfed.org",
+      "type": "text/plain"
+    }
+  }
+}

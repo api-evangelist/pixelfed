@@ -1,0 +1,692 @@
+{
+  "item": [
+    {
+      "id": "713a1efc-db3c-4a89-8eaa-febdd6f3058c",
+      "name": "Blocks and Mutes",
+      "description": {
+        "content": "Blocked accounts and muted accounts",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3007ba25-5fd2-4ae2-be0f-f982360c3335",
+          "name": "Get blocked accounts",
+          "request": {
+            "name": "Get blocked accounts",
+            "description": {
+              "content": "Returns accounts blocked by the authenticated account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "blocks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20",
+                  "description": "Maximum number of results to return (default 20, max 80)"
+                },
+                {
+                  "disabled": false,
+                  "key": "max_id",
+                  "value": "<string>",
+                  "description": "Return results older than this ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "since_id",
+                  "value": "<string>",
+                  "description": "Return results newer than this ID"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "Hostname of the Pixelfed instance",
+                  "type": "any",
+                  "value": "{{instance}}",
+                  "key": "instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write follow push"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://{instance}/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://{instance}/oauth/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e17c2977-4589-483a-bf8d-12c274a2002d",
+              "name": "Array of accounts",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "blocks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "max_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "since_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Hostname of the Pixelfed instance",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"123456789\",\n    \"username\": \"alice\",\n    \"acct\": \"alice@pixelfed.social\",\n    \"display_name\": \"Alice\",\n    \"locked\": false,\n    \"created_at\": \"2011-03-09T01:33:00.439Z\",\n    \"note\": \"string\",\n    \"url\": \"https://O.tcioQujK7W0OlLtvxCcN\",\n    \"avatar\": \"https://XObvwQGAxHMzrFWaVDRUb.qhpKzP\",\n    \"avatar_static\": \"https://UOMOHFldwnQrAabhAhFVPGV.mlqcAu+x4eZVUOq3SAXxvaiVn,E.Ln7OoKLagmGHu9mDT8\",\n    \"header\": \"http://HMzDNlYbcCcvKXFYAOUiJpughrhX.otmss-yd6-86OxN.IOE0uckTzm1gDDizxuXC+hJknV-2hoBIHL6T,jmVPzIYY67\",\n    \"header_static\": \"https://OVvQylGKHwkzGnB.liopYLtZFq46kClahfGUFmm\",\n    \"followers_count\": 6726,\n    \"following_count\": 4035,\n    \"statuses_count\": 8144,\n    \"emojis\": [\n      {\n        \"shortcode\": \"string\",\n        \"url\": \"http://WyxIGFEYtVxAKuILhUIaoUMKE.fepdI7pjqYx-Z-7CGp\",\n        \"static_url\": \"http://bhpImEMieRKXWfdKNAHvvH.eiwGxZCYW5e,Ev2uJBBtQa.wU,7eYO.daQcOydrXeWhJltLdgHmZK7lr.wZeUEeragYMDfu2C\",\n        \"visible_in_picker\": true\n      },\n      {\n        \"shortcode\": \"string\",\n        \"url\": \"https://nqPtayuAjiWDDXcJtAEtbsJKF.jdukYPLVu2q9UaERsnnfcMwYYGhbSaKCIRsAFtNri,\",\n        \"static_url\": \"https://INAnzkNqlsPHCvQNbpfurNKUwJXfsE.uovnwGNtTbblGil6GCN9Qmqobss6CfTk5fZtD2AQBjSoLCNQTUVb7\",\n        \"visible_in_picker\": true\n      }\n    ],\n    \"fields\": [\n      {\n        \"name\": \"string\",\n        \"value\": \"string\",\n        \"verified_at\": \"2009-10-05T07:52:33.163Z\"\n      },\n      {\n        \"name\": \"string\",\n        \"value\": \"string\",\n        \"verified_at\": \"1997-05-11T21:13:05.100Z\"\n      }\n    ]\n  },\n  {\n    \"id\": \"123456789\",\n    \"username\": \"alice\",\n    \"acct\": \"alice@pixelfed.social\",\n    \"display_name\": \"Alice\",\n    \"locked\": false,\n    \"created_at\": \"1951-01-28T22:17:49.573Z\",\n    \"note\": \"string\",\n    \"url\": \"https://UhHrPhYyGDxphIIDYQiex.snlKOwuOCEA\",\n    \"avatar\": \"https://ukncb.gtrsJjK4Qr6vqCf76obWoZMz02XErRTNFA1bco\",\n    \"avatar_static\": \"http://ITdKIPdJDwccidWYdZvoKhDXPGbNrs.otqyfUBjtT8z-P93TUBusx7MQyUYwzEAN3qYv7\",\n    \"header\": \"https://NDYLLMAyCyPcnOLwpq.zequtpR4YDI\",\n    \"header_static\": \"https://XfCgKqZlFisAaxTTiIB.olggeURe6Aku.y3tMViHuGDUkpyuoE\",\n    \"followers_count\": 1469,\n    \"following_count\": 2524,\n    \"statuses_count\": 9589,\n    \"emojis\": [\n      {\n        \"shortcode\": \"string\",\n        \"url\": \"http://knaUNEBQVFpUfHVzx.dlQmYykKZ4P-hczVyTTCOlw.xEnZGU9iotATX-Ij.ttBZ5ac\",\n        \"static_url\": \"http://TVhEn.uaegApMNIGZ0qHO5P.ObC,XQIOwhOJLDT7DeLR,QhCZS\",\n        \"visible_in_picker\": false\n      },\n      {\n        \"shortcode\": \"string\",\n        \"url\": \"https://uZspPFFYUzWliYjWHgJzppRKPBXOM.fviuCa1UjRh6Wa,T2ewFsHf++jHkpHhUV-.wXim+40N-gKK4NBQ85uAczIzateMhjf\",\n        \"static_url\": \"http://nkA.huJC-fIwDYC+Eyp\",\n        \"visible_in_picker\": false\n      }\n    ],\n    \"fields\": [\n      {\n        \"name\": \"string\",\n        \"value\": \"string\",\n        \"verified_at\": \"1984-09-05T17:18:56.374Z\"\n      },\n      {\n        \"name\": \"string\",\n        \"value\": \"string\",\n        \"verified_at\": \"2022-10-28T02:06:09.552Z\"\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7fc9716e-b316-4606-b905-6369d124c8ab",
+              "name": "Missing or invalid OAuth token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "blocks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "max_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "since_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Hostname of the Pixelfed instance",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"error_description\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6f83767c-7243-4202-978b-d0cf4a92049d",
+          "name": "Get muted accounts",
+          "request": {
+            "name": "Get muted accounts",
+            "description": {
+              "content": "Returns accounts muted by the authenticated account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "mutes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20",
+                  "description": "Maximum number of results to return (default 20, max 80)"
+                },
+                {
+                  "disabled": false,
+                  "key": "max_id",
+                  "value": "<string>",
+                  "description": "Return results older than this ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "since_id",
+                  "value": "<string>",
+                  "description": "Return results newer than this ID"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "Hostname of the Pixelfed instance",
+                  "type": "any",
+                  "value": "{{instance}}",
+                  "key": "instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write follow push"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://{instance}/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://{instance}/oauth/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "0320d583-334a-449d-9c78-dfaceb9371f6",
+              "name": "Array of accounts",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "mutes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "max_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "since_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Hostname of the Pixelfed instance",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"123456789\",\n    \"username\": \"alice\",\n    \"acct\": \"alice@pixelfed.social\",\n    \"display_name\": \"Alice\",\n    \"locked\": false,\n    \"created_at\": \"2011-03-09T01:33:00.439Z\",\n    \"note\": \"string\",\n    \"url\": \"https://O.tcioQujK7W0OlLtvxCcN\",\n    \"avatar\": \"https://XObvwQGAxHMzrFWaVDRUb.qhpKzP\",\n    \"avatar_static\": \"https://UOMOHFldwnQrAabhAhFVPGV.mlqcAu+x4eZVUOq3SAXxvaiVn,E.Ln7OoKLagmGHu9mDT8\",\n    \"header\": \"http://HMzDNlYbcCcvKXFYAOUiJpughrhX.otmss-yd6-86OxN.IOE0uckTzm1gDDizxuXC+hJknV-2hoBIHL6T,jmVPzIYY67\",\n    \"header_static\": \"https://OVvQylGKHwkzGnB.liopYLtZFq46kClahfGUFmm\",\n    \"followers_count\": 6726,\n    \"following_count\": 4035,\n    \"statuses_count\": 8144,\n    \"emojis\": [\n      {\n        \"shortcode\": \"string\",\n        \"url\": \"http://WyxIGFEYtVxAKuILhUIaoUMKE.fepdI7pjqYx-Z-7CGp\",\n        \"static_url\": \"http://bhpImEMieRKXWfdKNAHvvH.eiwGxZCYW5e,Ev2uJBBtQa.wU,7eYO.daQcOydrXeWhJltLdgHmZK7lr.wZeUEeragYMDfu2C\",\n        \"visible_in_picker\": true\n      },\n      {\n        \"shortcode\": \"string\",\n        \"url\": \"https://nqPtayuAjiWDDXcJtAEtbsJKF.jdukYPLVu2q9UaERsnnfcMwYYGhbSaKCIRsAFtNri,\",\n        \"static_url\": \"https://INAnzkNqlsPHCvQNbpfurNKUwJXfsE.uovnwGNtTbblGil6GCN9Qmqobss6CfTk5fZtD2AQBjSoLCNQTUVb7\",\n        \"visible_in_picker\": true\n      }\n    ],\n    \"fields\": [\n      {\n        \"name\": \"string\",\n        \"value\": \"string\",\n        \"verified_at\": \"2009-10-05T07:52:33.163Z\"\n      },\n      {\n        \"name\": \"string\",\n        \"value\": \"string\",\n        \"verified_at\": \"1997-05-11T21:13:05.100Z\"\n      }\n    ]\n  },\n  {\n    \"id\": \"123456789\",\n    \"username\": \"alice\",\n    \"acct\": \"alice@pixelfed.social\",\n    \"display_name\": \"Alice\",\n    \"locked\": false,\n    \"created_at\": \"1951-01-28T22:17:49.573Z\",\n    \"note\": \"string\",\n    \"url\": \"https://UhHrPhYyGDxphIIDYQiex.snlKOwuOCEA\",\n    \"avatar\": \"https://ukncb.gtrsJjK4Qr6vqCf76obWoZMz02XErRTNFA1bco\",\n    \"avatar_static\": \"http://ITdKIPdJDwccidWYdZvoKhDXPGbNrs.otqyfUBjtT8z-P93TUBusx7MQyUYwzEAN3qYv7\",\n    \"header\": \"https://NDYLLMAyCyPcnOLwpq.zequtpR4YDI\",\n    \"header_static\": \"https://XfCgKqZlFisAaxTTiIB.olggeURe6Aku.y3tMViHuGDUkpyuoE\",\n    \"followers_count\": 1469,\n    \"following_count\": 2524,\n    \"statuses_count\": 9589,\n    \"emojis\": [\n      {\n        \"shortcode\": \"string\",\n        \"url\": \"http://knaUNEBQVFpUfHVzx.dlQmYykKZ4P-hczVyTTCOlw.xEnZGU9iotATX-Ij.ttBZ5ac\",\n        \"static_url\": \"http://TVhEn.uaegApMNIGZ0qHO5P.ObC,XQIOwhOJLDT7DeLR,QhCZS\",\n        \"visible_in_picker\": false\n      },\n      {\n        \"shortcode\": \"string\",\n        \"url\": \"https://uZspPFFYUzWliYjWHgJzppRKPBXOM.fviuCa1UjRh6Wa,T2ewFsHf++jHkpHhUV-.wXim+40N-gKK4NBQ85uAczIzateMhjf\",\n        \"static_url\": \"http://nkA.huJC-fIwDYC+Eyp\",\n        \"visible_in_picker\": false\n      }\n    ],\n    \"fields\": [\n      {\n        \"name\": \"string\",\n        \"value\": \"string\",\n        \"verified_at\": \"1984-09-05T17:18:56.374Z\"\n      },\n      {\n        \"name\": \"string\",\n        \"value\": \"string\",\n        \"verified_at\": \"2022-10-28T02:06:09.552Z\"\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9dfbda08-ec5a-41e1-bd53-d7ab26db8757",
+              "name": "Missing or invalid OAuth token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "mutes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "max_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "since_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Hostname of the Pixelfed instance",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"error_description\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "744f2b17-0c7c-438e-969c-96c014401c7e",
+          "name": "Get blocked domains",
+          "request": {
+            "name": "Get blocked domains",
+            "description": {
+              "content": "Returns domains blocked by the authenticated account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "domain_blocks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20",
+                  "description": "Maximum number of results to return (default 20, max 80)"
+                },
+                {
+                  "disabled": false,
+                  "key": "max_id",
+                  "value": "<string>",
+                  "description": "Return results older than this ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "since_id",
+                  "value": "<string>",
+                  "description": "Return results newer than this ID"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "Hostname of the Pixelfed instance",
+                  "type": "any",
+                  "value": "{{instance}}",
+                  "key": "instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write follow push"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://{instance}/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://{instance}/oauth/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "739051a7-9032-46b9-9773-2470326972eb",
+              "name": "Array of domain strings",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "domain_blocks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "max_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "since_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Hostname of the Pixelfed instance",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  \"string\",\n  \"string\"\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "55fb2d85-b9dc-44f9-92db-e41909b22b72",
+              "name": "Missing or invalid OAuth token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "domain_blocks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "max_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "since_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Hostname of the Pixelfed instance",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"error_description\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Hostname of the Pixelfed instance",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "pixelfed.social",
+      "key": "instance"
+    },
+    {
+      "type": "string",
+      "value": "https://{{instance}}/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "read write follow push"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://{instance}/oauth/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://{instance}/oauth/authorize"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "310d3763-d0cb-4ee9-8d6b-886e23ea624a",
+    "name": "Pixelfed REST Accounts Blocks and Mutes API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Mastodon-compatible REST API for the Pixelfed federated photo-sharing platform. Provides endpoints for accounts, statuses, timelines, media, notifications, search, collections, stories, direct messages, and instance/federation metadata. All authenticated calls use OAuth2 Bearer tokens. Every Pixelfed instance exposes this API independently at its own domain; there is no single central API host.\n\n\nContact Support:\n Name: Pixelfed\n Email: hello@pixelfed.org",
+      "type": "text/plain"
+    }
+  }
+}

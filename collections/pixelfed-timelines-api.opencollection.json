@@ -1,0 +1,231 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Pixelfed REST Accounts Timelines API",
+    "version": "1.1"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://{instance}/oauth/authorize",
+      "accessTokenUrl": "https://{instance}/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Timelines",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get home timeline",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}/api/v1/timelines/home",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return (default 20, max 80)"
+              },
+              {
+                "name": "max_id",
+                "value": "",
+                "type": "query",
+                "description": "Return results older than this ID"
+              },
+              {
+                "name": "since_id",
+                "value": "",
+                "type": "query",
+                "description": "Return results newer than this ID"
+              },
+              {
+                "name": "min_id",
+                "value": "",
+                "type": "query",
+                "description": "Return results immediately newer than this ID"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://{instance}/oauth/authorize",
+              "accessTokenUrl": "https://{instance}/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Returns statuses from followed accounts."
+        },
+        {
+          "info": {
+            "name": "Get public timeline",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}/api/v1/timelines/public",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return (default 20, max 80)"
+              },
+              {
+                "name": "max_id",
+                "value": "",
+                "type": "query",
+                "description": "Return results older than this ID"
+              },
+              {
+                "name": "since_id",
+                "value": "",
+                "type": "query",
+                "description": "Return results newer than this ID"
+              },
+              {
+                "name": "min_id",
+                "value": "",
+                "type": "query",
+                "description": "Return results immediately newer than this ID"
+              },
+              {
+                "name": "local",
+                "value": "",
+                "type": "query",
+                "description": "Show only local statuses"
+              },
+              {
+                "name": "only_media",
+                "value": "",
+                "type": "query",
+                "description": "Show only statuses with media"
+              }
+            ]
+          },
+          "docs": "Returns public statuses known to the server. Also known as the federated timeline."
+        },
+        {
+          "info": {
+            "name": "Get hashtag timeline",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}/api/v1/timelines/tag/:hashtag",
+            "params": [
+              {
+                "name": "hashtag",
+                "value": "",
+                "type": "path",
+                "description": "The name of the hashtag (without leading"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return (default 20, max 80)"
+              },
+              {
+                "name": "max_id",
+                "value": "",
+                "type": "query",
+                "description": "Return results older than this ID"
+              },
+              {
+                "name": "since_id",
+                "value": "",
+                "type": "query",
+                "description": "Return results newer than this ID"
+              },
+              {
+                "name": "min_id",
+                "value": "",
+                "type": "query",
+                "description": "Return results immediately newer than this ID"
+              },
+              {
+                "name": "local",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "only_media",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns public statuses containing the given hashtag."
+        },
+        {
+          "info": {
+            "name": "Get list timeline",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}/api/v1/timelines/list/:list_id",
+            "params": [
+              {
+                "name": "list_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return (default 20, max 80)"
+              },
+              {
+                "name": "max_id",
+                "value": "",
+                "type": "query",
+                "description": "Return results older than this ID"
+              },
+              {
+                "name": "since_id",
+                "value": "",
+                "type": "query",
+                "description": "Return results newer than this ID"
+              },
+              {
+                "name": "min_id",
+                "value": "",
+                "type": "query",
+                "description": "Return results immediately newer than this ID"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://{instance}/oauth/authorize",
+              "accessTokenUrl": "https://{instance}/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Returns statuses from members of the given list."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

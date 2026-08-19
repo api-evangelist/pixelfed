@@ -1,0 +1,103 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Pixelfed REST Accounts Search API",
+    "version": "1.1"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://{instance}/oauth/authorize",
+      "accessTokenUrl": "https://{instance}/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Search",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}/api/v2/search",
+            "params": [
+              {
+                "name": "q",
+                "value": "",
+                "type": "query",
+                "description": "Search query"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Restrict results to a specific entity type"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return (default 20, max 80)"
+              },
+              {
+                "name": "max_id",
+                "value": "",
+                "type": "query",
+                "description": "Return results older than this ID"
+              },
+              {
+                "name": "min_id",
+                "value": "",
+                "type": "query",
+                "description": "Return results immediately newer than this ID"
+              },
+              {
+                "name": "resolve",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "following",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "exclude_unreviewed",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://{instance}/oauth/authorize",
+              "accessTokenUrl": "https://{instance}/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Full-text search across accounts, statuses, and hashtags. At least one of the following must be true: the authenticated user has search permissions, or the q value contains only hashtags.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

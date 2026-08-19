@@ -1,0 +1,546 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Pixelfed REST Accounts API",
+    "version": "1.1"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://{instance}/oauth/authorize",
+      "accessTokenUrl": "https://{instance}/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Accounts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Verify account credentials",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}/api/v1/verify_credentials",
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://{instance}/oauth/authorize",
+              "accessTokenUrl": "https://{instance}/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Returns the authenticated account's information."
+        },
+        {
+          "info": {
+            "name": "Update account credentials",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{instance}/api/v1/update_credentials",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "display_name",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "note",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "avatar",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "header",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "locked",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "source[privacy]",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "source[sensitive]",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "source[language]",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://{instance}/oauth/authorize",
+              "accessTokenUrl": "https://{instance}/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Updates the authenticated account's display name, bio, avatar, header, etc."
+        },
+        {
+          "info": {
+            "name": "Get account by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}/api/v1/accounts/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the account"
+              }
+            ]
+          },
+          "docs": "Returns information about an account with the given ID."
+        },
+        {
+          "info": {
+            "name": "Get account statuses",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}/api/v1/accounts/:id/statuses",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return (default 20, max 80)"
+              },
+              {
+                "name": "max_id",
+                "value": "",
+                "type": "query",
+                "description": "Return results older than this ID"
+              },
+              {
+                "name": "since_id",
+                "value": "",
+                "type": "query",
+                "description": "Return results newer than this ID"
+              },
+              {
+                "name": "min_id",
+                "value": "",
+                "type": "query",
+                "description": "Return results immediately newer than this ID"
+              },
+              {
+                "name": "only_media",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "exclude_replies",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "exclude_reblogs",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pinned",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "tagged",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns statuses posted by the account."
+        },
+        {
+          "info": {
+            "name": "Get account followers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}/api/v1/accounts/:id/followers",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return (default 20, max 80)"
+              },
+              {
+                "name": "max_id",
+                "value": "",
+                "type": "query",
+                "description": "Return results older than this ID"
+              },
+              {
+                "name": "since_id",
+                "value": "",
+                "type": "query",
+                "description": "Return results newer than this ID"
+              }
+            ]
+          },
+          "docs": "Returns accounts that follow the given account."
+        },
+        {
+          "info": {
+            "name": "Get accounts followed by account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}/api/v1/accounts/:id/following",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return (default 20, max 80)"
+              },
+              {
+                "name": "max_id",
+                "value": "",
+                "type": "query",
+                "description": "Return results older than this ID"
+              },
+              {
+                "name": "since_id",
+                "value": "",
+                "type": "query",
+                "description": "Return results newer than this ID"
+              }
+            ]
+          },
+          "docs": "Returns accounts that the given account follows."
+        },
+        {
+          "info": {
+            "name": "Follow account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{instance}/api/v1/accounts/:id/follow",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://{instance}/oauth/authorize",
+              "accessTokenUrl": "https://{instance}/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Follow the account with the given ID."
+        },
+        {
+          "info": {
+            "name": "Unfollow account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{instance}/api/v1/accounts/:id/unfollow",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://{instance}/oauth/authorize",
+              "accessTokenUrl": "https://{instance}/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Unfollow the account with the given ID."
+        },
+        {
+          "info": {
+            "name": "Block account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{instance}/api/v1/accounts/:id/block",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://{instance}/oauth/authorize",
+              "accessTokenUrl": "https://{instance}/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Block the account with the given ID."
+        },
+        {
+          "info": {
+            "name": "Unblock account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{instance}/api/v1/accounts/:id/unblock",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://{instance}/oauth/authorize",
+              "accessTokenUrl": "https://{instance}/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Unblock the account with the given ID."
+        },
+        {
+          "info": {
+            "name": "Mute account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{instance}/api/v1/accounts/:id/mute",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://{instance}/oauth/authorize",
+              "accessTokenUrl": "https://{instance}/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Mute the account with the given ID."
+        },
+        {
+          "info": {
+            "name": "Unmute account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{instance}/api/v1/accounts/:id/unmute",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://{instance}/oauth/authorize",
+              "accessTokenUrl": "https://{instance}/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Unmute the account with the given ID."
+        },
+        {
+          "info": {
+            "name": "Get relationships with accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}/api/v1/accounts/relationships",
+            "params": [
+              {
+                "name": "id[]",
+                "value": "",
+                "type": "query",
+                "description": "Account IDs to check relationships with"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://{instance}/oauth/authorize",
+              "accessTokenUrl": "https://{instance}/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Returns relationships between the authenticated account and given accounts."
+        },
+        {
+          "info": {
+            "name": "Search for accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}/api/v1/accounts/search",
+            "params": [
+              {
+                "name": "q",
+                "value": "",
+                "type": "query",
+                "description": "Search query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return (default 20, max 80)"
+              },
+              {
+                "name": "resolve",
+                "value": "",
+                "type": "query",
+                "description": "Attempt to resolve remote accounts via WebFinger"
+              },
+              {
+                "name": "following",
+                "value": "",
+                "type": "query",
+                "description": "Limit results to accounts the authenticated user follows"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://{instance}/oauth/authorize",
+              "accessTokenUrl": "https://{instance}/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Search for accounts by username, display name, or note."
+        },
+        {
+          "info": {
+            "name": "Look up account by username",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}/api/v1/accounts/lookup",
+            "params": [
+              {
+                "name": "acct",
+                "value": "",
+                "type": "query",
+                "description": "The username (local) or username@domain (remote)"
+              }
+            ]
+          },
+          "docs": "Look up an account by its username without needing its ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
