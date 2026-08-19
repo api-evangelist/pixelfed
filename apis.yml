@@ -36,7 +36,7 @@ tags:
 created: "2024-01-01"
 modified: "2026-06-13"
 url: https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/apis.yml
-specificationVersion: "0.19"
+specificationVersion: '0.23'
 apis:
 - aid: pixelfed:pixelfed-accounts-api
   name: Pixelfed Accounts API
