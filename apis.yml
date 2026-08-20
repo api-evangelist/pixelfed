@@ -28,6 +28,15 @@ tags:
   - Fediverse
   - ActivityPub
   - Photo Sharing
+  - Social-Media
+  - Open-Source
+  - Decentralized
+  - Mastodon Compatible
+  - Federation
+tags_raw:
+  - Fediverse
+  - ActivityPub
+  - Photo Sharing
   - Social Media
   - Open Source
   - Decentralized
@@ -44,6 +53,8 @@ apis:
   humanURL: https://docs.pixelfed.org/
   baseURL: https://{instance}/api
   tags:
+  - Account
+  tags_raw:
   - Accounts
   properties:
   - type: OpenAPI
@@ -119,6 +130,8 @@ apis:
   humanURL: https://docs.pixelfed.org/
   baseURL: https://{instance}/api
   tags:
+  - Collection
+  tags_raw:
   - Collections
   properties:
   - type: OpenAPI
@@ -269,6 +282,8 @@ apis:
   humanURL: https://docs.pixelfed.org/
   baseURL: https://{instance}/api
   tags:
+  - List
+  tags_raw:
   - Lists
   properties:
   - type: OpenAPI
@@ -319,6 +334,8 @@ apis:
   humanURL: https://docs.pixelfed.org/
   baseURL: https://{instance}/api
   tags:
+  - Notification
+  tags_raw:
   - Notifications
   properties:
   - type: OpenAPI
@@ -394,6 +411,8 @@ apis:
   humanURL: https://docs.pixelfed.org/
   baseURL: https://{instance}/api
   tags:
+  - Status
+  tags_raw:
   - Statuses
   properties:
   - type: OpenAPI
