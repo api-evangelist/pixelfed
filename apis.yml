@@ -10,6 +10,20 @@ description: >
   Developers can register OAuth2 applications against any public Pixelfed
   instance and build clients using the same patterns used for Mastodon-
   compatible apps.
+deliveryModel:
+  model: open-core
+  license: AGPL-3.0
+  open_source: true
+  commercial: true
+  callable_host: false
+  label: Open core · an OSS project plus a commercial hosted product
+  confidence: high
+  source:
+  - license
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: free
   onboarding: self-serve
@@ -487,6 +501,16 @@ maintainers:
     X-twitter: kinlane
     email: kin@apievangelist.com
 common:
+  - type: IssueTracker
+    url: https://github.com/pixelfed/pixelfed/issues
+  - type: Releases
+    url: https://github.com/pixelfed/pixelfed/releases
+  - type: SecurityPolicy
+    url: https://github.com/pixelfed/pixelfed/blob/dev/SECURITY.md
+  - type: CodeOfConduct
+    url: https://github.com/pixelfed/pixelfed/blob/dev/CODE_OF_CONDUCT.md
+  - type: ContributionGuide
+    url: https://github.com/pixelfed/pixelfed/blob/dev/CONTRIBUTING.md
   - type: License
     name: AGPL-3.0
     url: https://github.com/pixelfed/pixelfed/blob/dev/LICENSE
