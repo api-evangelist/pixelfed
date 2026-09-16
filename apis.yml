@@ -1,15 +1,13 @@
 name: Pixelfed
-description: >
-  Pixelfed is a decentralized, federated photo-sharing platform and open-source
-  alternative to Instagram. Built on the ActivityPub protocol, it connects with
-  the broader Fediverse — including Mastodon, PeerTube, and other federated
-  networks — while giving users full ownership of their content. Pixelfed
-  exposes a REST API that is broadly compatible with the Mastodon v1/v2 API,
-  covering media uploads, status management, timelines, notifications, follower
-  graphs, direct messages, stories, collections, and administrative functions.
-  Developers can register OAuth2 applications against any public Pixelfed
-  instance and build clients using the same patterns used for Mastodon-
-  compatible apps.
+description: 'Pixelfed is a decentralized, federated photo-sharing platform and open-source alternative
+  to Instagram. Built on the ActivityPub protocol, it connects with the broader Fediverse — including
+  Mastodon, PeerTube, and other federated networks — while giving users full ownership of their content.
+  Pixelfed exposes a REST API that is broadly compatible with the Mastodon v1/v2 API, covering media uploads,
+  status management, timelines, notifications, follower graphs, direct messages, stories, collections,
+  and administrative functions. Developers can register OAuth2 applications against any public Pixelfed
+  instance and build clients using the same patterns used for Mastodon- compatible apps.
+
+  '
 deliveryModel:
   model: open-core
   license: AGPL-3.0
@@ -39,25 +37,25 @@ accessModel:
   method: derived
 image: https://pixelfed.org/img/logo.svg
 tags:
-  - Fediverse
-  - ActivityPub
-  - Photo Sharing
-  - Social-Media
-  - Open-Source
-  - Decentralized
-  - Mastodon Compatible
-  - Federation
+- Fediverse
+- ActivityPub
+- Photo Sharing
+- Social-Media
+- Open-Source
+- Decentralized
+- Mastodon Compatible
+- Federation
 tags_raw:
-  - Fediverse
-  - ActivityPub
-  - Photo Sharing
-  - Social Media
-  - Open Source
-  - Decentralized
-  - Mastodon Compatible
-  - Federation
-created: "2024-01-01"
-modified: "2026-06-13"
+- Fediverse
+- ActivityPub
+- Photo Sharing
+- Social Media
+- Open Source
+- Decentralized
+- Mastodon Compatible
+- Federation
+created: '2024-01-01'
+modified: '2026-09-16'
 url: https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/apis.yml
 specificationVersion: '0.23'
 apis:
@@ -80,14 +78,11 @@ apis:
   - type: Authentication
     url: https://docs.pixelfed.org/technical/api/
   - type: Plans
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/plans/plans.yml
+    url: https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/plans/plans.yml
   - type: RateLimits
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/rate-limits/rate-limits.yml
+    url: https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/rate-limits/rate-limits.yml
   - type: FinOps
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/finops/finops.yml
+    url: https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/finops/finops.yml
 - aid: pixelfed:pixelfed-blocks-and-mutes-api
   name: Pixelfed Blocks and Mutes API
   description: Blocked accounts and muted accounts
@@ -105,14 +100,11 @@ apis:
   - type: Authentication
     url: https://docs.pixelfed.org/technical/api/
   - type: Plans
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/plans/plans.yml
+    url: https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/plans/plans.yml
   - type: RateLimits
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/rate-limits/rate-limits.yml
+    url: https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/rate-limits/rate-limits.yml
   - type: FinOps
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/finops/finops.yml
+    url: https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/finops/finops.yml
 - aid: pixelfed:pixelfed-bookmarks-api
   name: Pixelfed Bookmarks API
   description: Bookmarked statuses
@@ -130,14 +122,11 @@ apis:
   - type: Authentication
     url: https://docs.pixelfed.org/technical/api/
   - type: Plans
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/plans/plans.yml
+    url: https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/plans/plans.yml
   - type: RateLimits
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/rate-limits/rate-limits.yml
+    url: https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/rate-limits/rate-limits.yml
   - type: FinOps
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/finops/finops.yml
+    url: https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/finops/finops.yml
 - aid: pixelfed:pixelfed-collections-api
   name: Pixelfed Collections API
   description: Pixelfed-specific photo collections (v1.1)
@@ -157,14 +146,11 @@ apis:
   - type: Authentication
     url: https://docs.pixelfed.org/technical/api/
   - type: Plans
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/plans/plans.yml
+    url: https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/plans/plans.yml
   - type: RateLimits
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/rate-limits/rate-limits.yml
+    url: https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/rate-limits/rate-limits.yml
   - type: FinOps
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/finops/finops.yml
+    url: https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/finops/finops.yml
 - aid: pixelfed:pixelfed-direct-messages-api
   name: Pixelfed Direct Messages API
   description: Pixelfed-specific direct messaging (v1.1)
@@ -182,14 +168,11 @@ apis:
   - type: Authentication
     url: https://docs.pixelfed.org/technical/api/
   - type: Plans
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/plans/plans.yml
+    url: https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/plans/plans.yml
   - type: RateLimits
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/rate-limits/rate-limits.yml
+    url: https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/rate-limits/rate-limits.yml
   - type: FinOps
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/finops/finops.yml
+    url: https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/finops/finops.yml
 - aid: pixelfed:pixelfed-discovery-api
   name: Pixelfed Discovery API
   description: Trending content, suggestions, and directory
@@ -207,14 +190,11 @@ apis:
   - type: Authentication
     url: https://docs.pixelfed.org/technical/api/
   - type: Plans
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/plans/plans.yml
+    url: https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/plans/plans.yml
   - type: RateLimits
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/rate-limits/rate-limits.yml
+    url: https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/rate-limits/rate-limits.yml
   - type: FinOps
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/finops/finops.yml
+    url: https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/finops/finops.yml
 - aid: pixelfed:pixelfed-favourites-api
   name: Pixelfed Favourites API
   description: Favourited statuses
@@ -232,14 +212,11 @@ apis:
   - type: Authentication
     url: https://docs.pixelfed.org/technical/api/
   - type: Plans
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/plans/plans.yml
+    url: https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/plans/plans.yml
   - type: RateLimits
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/rate-limits/rate-limits.yml
+    url: https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/rate-limits/rate-limits.yml
   - type: FinOps
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/finops/finops.yml
+    url: https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/finops/finops.yml
 - aid: pixelfed:pixelfed-follow-requests-api
   name: Pixelfed Follow Requests API
   description: Pending follow requests
@@ -257,14 +234,11 @@ apis:
   - type: Authentication
     url: https://docs.pixelfed.org/technical/api/
   - type: Plans
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/plans/plans.yml
+    url: https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/plans/plans.yml
   - type: RateLimits
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/rate-limits/rate-limits.yml
+    url: https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/rate-limits/rate-limits.yml
   - type: FinOps
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/finops/finops.yml
+    url: https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/finops/finops.yml
 - aid: pixelfed:pixelfed-instance-api
   name: Pixelfed Instance API
   description: Instance and federation metadata
@@ -282,14 +256,11 @@ apis:
   - type: Authentication
     url: https://docs.pixelfed.org/technical/api/
   - type: Plans
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/plans/plans.yml
+    url: https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/plans/plans.yml
   - type: RateLimits
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/rate-limits/rate-limits.yml
+    url: https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/rate-limits/rate-limits.yml
   - type: FinOps
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/finops/finops.yml
+    url: https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/finops/finops.yml
 - aid: pixelfed:pixelfed-lists-api
   name: Pixelfed Lists API
   description: List management and membership
@@ -309,14 +280,11 @@ apis:
   - type: Authentication
     url: https://docs.pixelfed.org/technical/api/
   - type: Plans
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/plans/plans.yml
+    url: https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/plans/plans.yml
   - type: RateLimits
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/rate-limits/rate-limits.yml
+    url: https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/rate-limits/rate-limits.yml
   - type: FinOps
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/finops/finops.yml
+    url: https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/finops/finops.yml
 - aid: pixelfed:pixelfed-media-api
   name: Pixelfed Media API
   description: Media upload and management
@@ -334,14 +302,11 @@ apis:
   - type: Authentication
     url: https://docs.pixelfed.org/technical/api/
   - type: Plans
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/plans/plans.yml
+    url: https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/plans/plans.yml
   - type: RateLimits
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/rate-limits/rate-limits.yml
+    url: https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/rate-limits/rate-limits.yml
   - type: FinOps
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/finops/finops.yml
+    url: https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/finops/finops.yml
 - aid: pixelfed:pixelfed-notifications-api
   name: Pixelfed Notifications API
   description: Notification retrieval and management
@@ -361,14 +326,11 @@ apis:
   - type: Authentication
     url: https://docs.pixelfed.org/technical/api/
   - type: Plans
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/plans/plans.yml
+    url: https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/plans/plans.yml
   - type: RateLimits
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/rate-limits/rate-limits.yml
+    url: https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/rate-limits/rate-limits.yml
   - type: FinOps
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/finops/finops.yml
+    url: https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/finops/finops.yml
 - aid: pixelfed:pixelfed-push-notifications-api
   name: Pixelfed Push Notifications API
   description: Web push subscription management (v1.1)
@@ -386,14 +348,11 @@ apis:
   - type: Authentication
     url: https://docs.pixelfed.org/technical/api/
   - type: Plans
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/plans/plans.yml
+    url: https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/plans/plans.yml
   - type: RateLimits
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/rate-limits/rate-limits.yml
+    url: https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/rate-limits/rate-limits.yml
   - type: FinOps
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/finops/finops.yml
+    url: https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/finops/finops.yml
 - aid: pixelfed:pixelfed-search-api
   name: Pixelfed Search API
   description: Full-text and entity search
@@ -411,14 +370,11 @@ apis:
   - type: Authentication
     url: https://docs.pixelfed.org/technical/api/
   - type: Plans
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/plans/plans.yml
+    url: https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/plans/plans.yml
   - type: RateLimits
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/rate-limits/rate-limits.yml
+    url: https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/rate-limits/rate-limits.yml
   - type: FinOps
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/finops/finops.yml
+    url: https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/finops/finops.yml
 - aid: pixelfed:pixelfed-statuses-api
   name: Pixelfed Statuses API
   description: Creating, reading, and interacting with statuses (posts)
@@ -438,14 +394,11 @@ apis:
   - type: Authentication
     url: https://docs.pixelfed.org/technical/api/
   - type: Plans
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/plans/plans.yml
+    url: https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/plans/plans.yml
   - type: RateLimits
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/rate-limits/rate-limits.yml
+    url: https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/rate-limits/rate-limits.yml
   - type: FinOps
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/finops/finops.yml
+    url: https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/finops/finops.yml
 - aid: pixelfed:pixelfed-stories-api
   name: Pixelfed Stories API
   description: Pixelfed-specific ephemeral stories (v1.1)
@@ -463,14 +416,11 @@ apis:
   - type: Authentication
     url: https://docs.pixelfed.org/technical/api/
   - type: Plans
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/plans/plans.yml
+    url: https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/plans/plans.yml
   - type: RateLimits
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/rate-limits/rate-limits.yml
+    url: https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/rate-limits/rate-limits.yml
   - type: FinOps
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/finops/finops.yml
+    url: https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/finops/finops.yml
 - aid: pixelfed:pixelfed-timelines-api
   name: Pixelfed Timelines API
   description: Home, public, tag, and list timelines
@@ -488,37 +438,36 @@ apis:
   - type: Authentication
     url: https://docs.pixelfed.org/technical/api/
   - type: Plans
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/plans/plans.yml
+    url: https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/plans/plans.yml
   - type: RateLimits
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/rate-limits/rate-limits.yml
+    url: https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/rate-limits/rate-limits.yml
   - type: FinOps
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/finops/finops.yml
+    url: https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/finops/finops.yml
 maintainers:
-  - FN: Kin Lane
-    X-twitter: kinlane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  X-twitter: kinlane
+  email: kin@apievangelist.com
 common:
-  - type: IssueTracker
-    url: https://github.com/pixelfed/pixelfed/issues
-  - type: Releases
-    url: https://github.com/pixelfed/pixelfed/releases
-  - type: SecurityPolicy
-    url: https://github.com/pixelfed/pixelfed/blob/dev/SECURITY.md
-  - type: CodeOfConduct
-    url: https://github.com/pixelfed/pixelfed/blob/dev/CODE_OF_CONDUCT.md
-  - type: ContributionGuide
-    url: https://github.com/pixelfed/pixelfed/blob/dev/CONTRIBUTING.md
-  - type: License
-    name: AGPL-3.0
-    url: https://github.com/pixelfed/pixelfed/blob/dev/LICENSE
-  - type: AgenticAccess
-    url: agentic-access/pixelfed-agentic-access.yml
-  - type: DomainSecurity
-    url: security/pixelfed-domain-security.yml
-  - type: Authentication
-    url: authentication/pixelfed-authentication.yml
-  - type: OAuthScopes
-    url: scopes/pixelfed-scopes.yml
+- type: Website
+  url: https://pixelfed.org
+- type: IssueTracker
+  url: https://github.com/pixelfed/pixelfed/issues
+- type: Releases
+  url: https://github.com/pixelfed/pixelfed/releases
+- type: SecurityPolicy
+  url: https://github.com/pixelfed/pixelfed/blob/dev/SECURITY.md
+- type: CodeOfConduct
+  url: https://github.com/pixelfed/pixelfed/blob/dev/CODE_OF_CONDUCT.md
+- type: ContributionGuide
+  url: https://github.com/pixelfed/pixelfed/blob/dev/CONTRIBUTING.md
+- type: License
+  name: AGPL-3.0
+  url: https://github.com/pixelfed/pixelfed/blob/dev/LICENSE
+- type: AgenticAccess
+  url: agentic-access/pixelfed-agentic-access.yml
+- type: DomainSecurity
+  url: security/pixelfed-domain-security.yml
+- type: Authentication
+  url: authentication/pixelfed-authentication.yml
+- type: OAuthScopes
+  url: scopes/pixelfed-scopes.yml
