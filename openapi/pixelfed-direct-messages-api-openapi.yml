@@ -1,9 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Pixelfed REST Accounts Direct Messages API
-  description: 'Mastodon-compatible REST API for the Pixelfed federated photo-sharing platform. Provides endpoints for accounts, statuses, timelines, media, notifications, search, collections, stories, direct messages, and instance/federation metadata. All authenticated calls use OAuth2 Bearer tokens. Every Pixelfed instance exposes this API independently at its own domain; there is no single central API host.
-
-    '
+  title: Pixelfed REST Direct Messages API
+  description: Mastodon-compatible REST API for the Pixelfed federated photo-sharing platform. Provides endpoints for accounts, statuses, timelines, media, notifications, search, collections, stories, direct messages, and instance/federation metadata. All authenticated calls use OAuth2 Bearer tokens. Every Pixelfed instance exposes this API independently at its own domain; there is no single central API host.
   version: '1.1'
   contact:
     name: Pixelfed
@@ -58,13 +56,6 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  responses:
-    Unauthorized:
-      description: Missing or invalid OAuth token
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
     Error:
       type: object
@@ -75,7 +66,20 @@ components:
         error_description:
           type: string
           description: Additional error details
+  responses:
+    Unauthorized:
+      description: Missing or invalid OAuth token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
+    maxIdParam:
+      name: max_id
+      in: query
+      description: Return results older than this ID
+      schema:
+        type: string
     limitParam:
       name: limit
       in: query
@@ -84,12 +88,6 @@ components:
         type: integer
         default: 20
         maximum: 80
-    maxIdParam:
-      name: max_id
-      in: query
-      description: Return results older than this ID
-      schema:
-        type: string
   securitySchemes:
     OAuth2:
       type: oauth2
