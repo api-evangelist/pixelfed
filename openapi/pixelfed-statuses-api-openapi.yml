@@ -399,35 +399,116 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  parameters:
-    limitParam:
-      name: limit
-      in: query
-      description: Maximum number of results to return (default 20, max 80)
-      schema:
-        type: integer
-        default: 20
-        maximum: 80
-  responses:
-    UnprocessableEntity:
-      description: Validation error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid OAuth token
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
+    Mention:
+      type: object
+      properties:
+        id:
+          type: string
+        username:
+          type: string
+        acct:
+          type: string
+        url:
+          type: string
+          format: uri
+    MediaAttachment:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - unknown
+          - image
+          - gifv
+          - video
+          - audio
+        url:
+          type: string
+          format: uri
+          nullable: true
+        preview_url:
+          type: string
+          format: uri
+          nullable: true
+        remote_url:
+          type: string
+          format: uri
+          nullable: true
+        meta:
+          type: object
+        description:
+          type: string
+          nullable: true
+        blurhash:
+          type: string
+          nullable: true
+    Account:
+      type: object
+      description: Represents a Pixelfed / Mastodon-compatible account
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the account
+          example: '123456789'
+        username:
+          type: string
+          description: The account's username (local part)
+          example: alice
+        acct:
+          type: string
+          description: 'Webfinger account URI. Equal to username for local accounts, or username@domain for remote accounts.
+
+            '
+          example: alice@pixelfed.social
+        display_name:
+          type: string
+          description: Display name of the account
+          example: Alice
+        locked:
+          type: boolean
+          description: Whether the account requires manual follow approval
+        created_at:
+          type: string
+          format: date-time
+        note:
+          type: string
+          description: Biography / profile note (HTML)
+        url:
+          type: string
+          format: uri
+          description: Profile URL
+        avatar:
+          type: string
+          format: uri
+          description: URL to the account's avatar image
+        avatar_static:
+          type: string
+          format: uri
+          description: URL to a static version of the avatar
+        header:
+          type: string
+          format: uri
+          description: URL to the account's header image
+        header_static:
+          type: string
+          format: uri
+        followers_count:
+          type: integer
+        following_count:
+          type: integer
+        statuses_count:
+          type: integer
+        emojis:
+          type: array
+          items:
+            $ref: '#/components/schemas/Emoji'
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/Field'
     Emoji:
       type: object
       properties:
@@ -441,6 +522,15 @@ components:
           format: uri
         visible_in_picker:
           type: boolean
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+        error_description:
+          type: string
+          description: Additional error details
     Status:
       type: object
       description: Represents a status (post) in the Pixelfed / Mastodon API
@@ -535,18 +625,39 @@ components:
           type: boolean
         pinned:
           type: boolean
-    Mention:
+    PreviewCard:
       type: object
       properties:
-        id:
+        url:
           type: string
-        username:
+          format: uri
+        title:
           type: string
-        acct:
+        description:
+          type: string
+        type:
+          type: string
+          enum:
+          - link
+          - photo
+          - video
+          - rich
+        image:
+          type: string
+          format: uri
+          nullable: true
+    Tag:
+      type: object
+      properties:
+        name:
           type: string
         url:
           type: string
           format: uri
+        history:
+          type: array
+          items:
+            type: object
     Poll:
       type: object
       properties:
@@ -574,15 +685,6 @@ components:
                 nullable: true
         voted:
           type: boolean
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message
-        error_description:
-          type: string
-          description: Additional error details
     Field:
       type: object
       properties:
@@ -594,136 +696,34 @@ components:
           type: string
           format: date-time
           nullable: true
-    Account:
-      type: object
-      description: Represents a Pixelfed / Mastodon-compatible account
-      properties:
-        id:
-          type: string
-          description: Unique identifier of the account
-          example: '123456789'
-        username:
-          type: string
-          description: The account's username (local part)
-          example: alice
-        acct:
-          type: string
-          description: 'Webfinger account URI. Equal to username for local accounts, or username@domain for remote accounts.
-
-            '
-          example: alice@pixelfed.social
-        display_name:
-          type: string
-          description: Display name of the account
-          example: Alice
-        locked:
-          type: boolean
-          description: Whether the account requires manual follow approval
-        created_at:
-          type: string
-          format: date-time
-        note:
-          type: string
-          description: Biography / profile note (HTML)
-        url:
-          type: string
-          format: uri
-          description: Profile URL
-        avatar:
-          type: string
-          format: uri
-          description: URL to the account's avatar image
-        avatar_static:
-          type: string
-          format: uri
-          description: URL to a static version of the avatar
-        header:
-          type: string
-          format: uri
-          description: URL to the account's header image
-        header_static:
-          type: string
-          format: uri
-        followers_count:
-          type: integer
-        following_count:
-          type: integer
-        statuses_count:
-          type: integer
-        emojis:
-          type: array
-          items:
-            $ref: '#/components/schemas/Emoji'
-        fields:
-          type: array
-          items:
-            $ref: '#/components/schemas/Field'
-    MediaAttachment:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - unknown
-          - image
-          - gifv
-          - video
-          - audio
-        url:
-          type: string
-          format: uri
-          nullable: true
-        preview_url:
-          type: string
-          format: uri
-          nullable: true
-        remote_url:
-          type: string
-          format: uri
-          nullable: true
-        meta:
-          type: object
-        description:
-          type: string
-          nullable: true
-        blurhash:
-          type: string
-          nullable: true
-    Tag:
-      type: object
-      properties:
-        name:
-          type: string
-        url:
-          type: string
-          format: uri
-        history:
-          type: array
-          items:
-            type: object
-    PreviewCard:
-      type: object
-      properties:
-        url:
-          type: string
-          format: uri
-        title:
-          type: string
-        description:
-          type: string
-        type:
-          type: string
-          enum:
-          - link
-          - photo
-          - video
-          - rich
-        image:
-          type: string
-          format: uri
-          nullable: true
+  parameters:
+    limitParam:
+      name: limit
+      in: query
+      description: Maximum number of results to return (default 20, max 80)
+      schema:
+        type: integer
+        default: 20
+        maximum: 80
+  responses:
+    UnprocessableEntity:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid OAuth token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     OAuth2:
       type: oauth2

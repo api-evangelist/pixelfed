@@ -300,52 +300,6 @@ components:
         default: 20
         maximum: 80
   schemas:
-    Emoji:
-      type: object
-      properties:
-        shortcode:
-          type: string
-        url:
-          type: string
-          format: uri
-        static_url:
-          type: string
-          format: uri
-        visible_in_picker:
-          type: boolean
-    List:
-      type: object
-      properties:
-        id:
-          type: string
-        title:
-          type: string
-        replies_policy:
-          type: string
-          enum:
-          - followed
-          - list
-          - none
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message
-        error_description:
-          type: string
-          description: Additional error details
-    Field:
-      type: object
-      properties:
-        name:
-          type: string
-        value:
-          type: string
-        verified_at:
-          type: string
-          format: date-time
-          nullable: true
     Account:
       type: object
       description: Represents a Pixelfed / Mastodon-compatible account
@@ -410,15 +364,61 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Field'
+    Emoji:
+      type: object
+      properties:
+        shortcode:
+          type: string
+        url:
+          type: string
+          format: uri
+        static_url:
+          type: string
+          format: uri
+        visible_in_picker:
+          type: boolean
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+        error_description:
+          type: string
+          description: Additional error details
+    List:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        replies_policy:
+          type: string
+          enum:
+          - followed
+          - list
+          - none
+    Field:
+      type: object
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+        verified_at:
+          type: string
+          format: date-time
+          nullable: true
   responses:
-    NotFound:
-      description: Resource not found
+    Unauthorized:
+      description: Missing or invalid OAuth token
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid OAuth token
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:

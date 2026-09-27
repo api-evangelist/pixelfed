@@ -117,39 +117,33 @@ components:
         default: 20
         maximum: 80
   schemas:
-    Emoji:
+    Relationship:
       type: object
       properties:
-        shortcode:
+        id:
           type: string
-        url:
-          type: string
-          format: uri
-        static_url:
-          type: string
-          format: uri
-        visible_in_picker:
+        following:
           type: boolean
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message
-        error_description:
-          type: string
-          description: Additional error details
-    Field:
-      type: object
-      properties:
-        name:
-          type: string
-        value:
-          type: string
-        verified_at:
-          type: string
-          format: date-time
-          nullable: true
+        showing_reblogs:
+          type: boolean
+        notifying:
+          type: boolean
+        followed_by:
+          type: boolean
+        blocking:
+          type: boolean
+        blocked_by:
+          type: boolean
+        muting:
+          type: boolean
+        muting_notifications:
+          type: boolean
+        requested:
+          type: boolean
+        domain_blocking:
+          type: boolean
+        endorsed:
+          type: boolean
     Account:
       type: object
       description: Represents a Pixelfed / Mastodon-compatible account
@@ -214,33 +208,39 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Field'
-    Relationship:
+    Emoji:
       type: object
       properties:
-        id:
+        shortcode:
           type: string
-        following:
+        url:
+          type: string
+          format: uri
+        static_url:
+          type: string
+          format: uri
+        visible_in_picker:
           type: boolean
-        showing_reblogs:
-          type: boolean
-        notifying:
-          type: boolean
-        followed_by:
-          type: boolean
-        blocking:
-          type: boolean
-        blocked_by:
-          type: boolean
-        muting:
-          type: boolean
-        muting_notifications:
-          type: boolean
-        requested:
-          type: boolean
-        domain_blocking:
-          type: boolean
-        endorsed:
-          type: boolean
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+        error_description:
+          type: string
+          description: Additional error details
+    Field:
+      type: object
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+        verified_at:
+          type: string
+          format: date-time
+          nullable: true
   responses:
     Unauthorized:
       description: Missing or invalid OAuth token

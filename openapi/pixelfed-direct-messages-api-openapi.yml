@@ -66,13 +66,6 @@ components:
         error_description:
           type: string
           description: Additional error details
-  responses:
-    Unauthorized:
-      description: Missing or invalid OAuth token
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   parameters:
     maxIdParam:
       name: max_id
@@ -88,6 +81,13 @@ components:
         type: integer
         default: 20
         maximum: 80
+  responses:
+    Unauthorized:
+      description: Missing or invalid OAuth token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     OAuth2:
       type: oauth2

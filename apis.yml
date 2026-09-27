@@ -40,8 +40,8 @@ tags:
 - Fediverse
 - ActivityPub
 - Photo Sharing
-- Social-Media
-- Open-Source
+- Social Media
+- Open Source
 - Decentralized
 - Mastodon Compatible
 - Federation
@@ -54,6 +54,8 @@ tags_raw:
 - Decentralized
 - Mastodon Compatible
 - Federation
+- Social-Media
+- Open-Source
 created: '2024-01-01'
 modified: '2026-09-16'
 url: https://raw.githubusercontent.com/api-evangelist/pixelfed/refs/heads/main/apis.yml

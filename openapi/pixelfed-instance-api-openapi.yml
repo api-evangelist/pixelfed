@@ -175,17 +175,6 @@ components:
           type: array
           items:
             type: object
-    Field:
-      type: object
-      properties:
-        name:
-          type: string
-        value:
-          type: string
-        verified_at:
-          type: string
-          format: date-time
-          nullable: true
     Emoji:
       type: object
       properties:
@@ -199,6 +188,17 @@ components:
           format: uri
         visible_in_picker:
           type: boolean
+    Field:
+      type: object
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+        verified_at:
+          type: string
+          format: date-time
+          nullable: true
   securitySchemes:
     OAuth2:
       type: oauth2
