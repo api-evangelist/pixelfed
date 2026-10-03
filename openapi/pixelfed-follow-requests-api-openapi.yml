@@ -107,43 +107,7 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  parameters:
-    limitParam:
-      name: limit
-      in: query
-      description: Maximum number of results to return (default 20, max 80)
-      schema:
-        type: integer
-        default: 20
-        maximum: 80
   schemas:
-    Relationship:
-      type: object
-      properties:
-        id:
-          type: string
-        following:
-          type: boolean
-        showing_reblogs:
-          type: boolean
-        notifying:
-          type: boolean
-        followed_by:
-          type: boolean
-        blocking:
-          type: boolean
-        blocked_by:
-          type: boolean
-        muting:
-          type: boolean
-        muting_notifications:
-          type: boolean
-        requested:
-          type: boolean
-        domain_blocking:
-          type: boolean
-        endorsed:
-          type: boolean
     Account:
       type: object
       description: Represents a Pixelfed / Mastodon-compatible account
@@ -208,6 +172,53 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Field'
+    Field:
+      type: object
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+        verified_at:
+          type: string
+          format: date-time
+          nullable: true
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+        error_description:
+          type: string
+          description: Additional error details
+    Relationship:
+      type: object
+      properties:
+        id:
+          type: string
+        following:
+          type: boolean
+        showing_reblogs:
+          type: boolean
+        notifying:
+          type: boolean
+        followed_by:
+          type: boolean
+        blocking:
+          type: boolean
+        blocked_by:
+          type: boolean
+        muting:
+          type: boolean
+        muting_notifications:
+          type: boolean
+        requested:
+          type: boolean
+        domain_blocking:
+          type: boolean
+        endorsed:
+          type: boolean
     Emoji:
       type: object
       properties:
@@ -221,26 +232,15 @@ components:
           format: uri
         visible_in_picker:
           type: boolean
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message
-        error_description:
-          type: string
-          description: Additional error details
-    Field:
-      type: object
-      properties:
-        name:
-          type: string
-        value:
-          type: string
-        verified_at:
-          type: string
-          format: date-time
-          nullable: true
+  parameters:
+    limitParam:
+      name: limit
+      in: query
+      description: Maximum number of results to return (default 20, max 80)
+      schema:
+        type: integer
+        default: 20
+        maximum: 80
   responses:
     Unauthorized:
       description: Missing or invalid OAuth token

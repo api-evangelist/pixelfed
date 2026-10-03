@@ -507,12 +507,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   parameters:
-    maxIdParam:
-      name: max_id
-      in: query
-      description: Return results older than this ID
-      schema:
-        type: string
     limitParam:
       name: limit
       in: query
@@ -521,6 +515,12 @@ components:
         type: integer
         default: 20
         maximum: 80
+    maxIdParam:
+      name: max_id
+      in: query
+      description: Return results older than this ID
+      schema:
+        type: string
     sinceIdParam:
       name: since_id
       in: query
@@ -534,67 +534,27 @@ components:
       schema:
         type: string
   schemas:
-    CredentialAccount:
-      allOf:
-      - $ref: '#/components/schemas/Account'
-      - type: object
-        properties:
-          source:
-            type: object
-            properties:
-              privacy:
-                type: string
-                enum:
-                - public
-                - unlisted
-                - private
-                - direct
-              sensitive:
-                type: boolean
-              language:
-                type: string
-              note:
-                type: string
-    Relationship:
+    PreviewCard:
       type: object
       properties:
-        id:
-          type: string
-        following:
-          type: boolean
-        showing_reblogs:
-          type: boolean
-        notifying:
-          type: boolean
-        followed_by:
-          type: boolean
-        blocking:
-          type: boolean
-        blocked_by:
-          type: boolean
-        muting:
-          type: boolean
-        muting_notifications:
-          type: boolean
-        requested:
-          type: boolean
-        domain_blocking:
-          type: boolean
-        endorsed:
-          type: boolean
-    Emoji:
-      type: object
-      properties:
-        shortcode:
-          type: string
         url:
           type: string
           format: uri
-        static_url:
+        title:
+          type: string
+        description:
+          type: string
+        type:
+          type: string
+          enum:
+          - link
+          - photo
+          - video
+          - rich
+        image:
           type: string
           format: uri
-        visible_in_picker:
-          type: boolean
+          nullable: true
     Poll:
       type: object
       properties:
@@ -622,26 +582,33 @@ components:
                 nullable: true
         voted:
           type: boolean
-    Field:
+    Relationship:
       type: object
       properties:
-        name:
+        id:
           type: string
-        value:
-          type: string
-        verified_at:
-          type: string
-          format: date-time
-          nullable: true
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message
-        error_description:
-          type: string
-          description: Additional error details
+        following:
+          type: boolean
+        showing_reblogs:
+          type: boolean
+        notifying:
+          type: boolean
+        followed_by:
+          type: boolean
+        blocking:
+          type: boolean
+        blocked_by:
+          type: boolean
+        muting:
+          type: boolean
+        muting_notifications:
+          type: boolean
+        requested:
+          type: boolean
+        domain_blocking:
+          type: boolean
+        endorsed:
+          type: boolean
     Mention:
       type: object
       properties:
@@ -654,6 +621,121 @@ components:
         url:
           type: string
           format: uri
+    CredentialAccount:
+      allOf:
+      - $ref: '#/components/schemas/Account'
+      - type: object
+        properties:
+          source:
+            type: object
+            properties:
+              privacy:
+                type: string
+                enum:
+                - public
+                - unlisted
+                - private
+                - direct
+              sensitive:
+                type: boolean
+              language:
+                type: string
+              note:
+                type: string
+    Status:
+      type: object
+      description: Represents a status (post) in the Pixelfed / Mastodon API
+      properties:
+        id:
+          type: string
+          example: '987654321'
+        created_at:
+          type: string
+          format: date-time
+        in_reply_to_id:
+          type: string
+          nullable: true
+        in_reply_to_account_id:
+          type: string
+          nullable: true
+        sensitive:
+          type: boolean
+        spoiler_text:
+          type: string
+        visibility:
+          type: string
+          enum:
+          - public
+          - unlisted
+          - private
+          - direct
+        language:
+          type: string
+          nullable: true
+        uri:
+          type: string
+          format: uri
+        url:
+          type: string
+          format: uri
+          nullable: true
+        replies_count:
+          type: integer
+        reblogs_count:
+          type: integer
+        favourites_count:
+          type: integer
+        content:
+          type: string
+          description: HTML-encoded content of the status
+        reblog:
+          nullable: true
+          allOf:
+          - $ref: '#/components/schemas/Status'
+        application:
+          type: object
+          nullable: true
+          properties:
+            name:
+              type: string
+            website:
+              type: string
+              format: uri
+              nullable: true
+        account:
+          $ref: '#/components/schemas/Account'
+        media_attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/MediaAttachment'
+        mentions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Mention'
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+        emojis:
+          type: array
+          items:
+            $ref: '#/components/schemas/Emoji'
+        card:
+          nullable: true
+          $ref: '#/components/schemas/PreviewCard'
+        poll:
+          nullable: true
+          $ref: '#/components/schemas/Poll'
+        favourited:
+          type: boolean
+        reblogged:
+          type: boolean
+        muted:
+          type: boolean
+        bookmarked:
+          type: boolean
+        pinned:
+          type: boolean
     Tag:
       type: object
       properties:
@@ -763,121 +845,39 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Field'
-    Status:
+    Error:
       type: object
-      description: Represents a status (post) in the Pixelfed / Mastodon API
       properties:
-        id:
+        error:
           type: string
-          example: '987654321'
-        created_at:
+          description: Error message
+        error_description:
+          type: string
+          description: Additional error details
+    Field:
+      type: object
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+        verified_at:
           type: string
           format: date-time
-        in_reply_to_id:
-          type: string
           nullable: true
-        in_reply_to_account_id:
-          type: string
-          nullable: true
-        sensitive:
-          type: boolean
-        spoiler_text:
-          type: string
-        visibility:
-          type: string
-          enum:
-          - public
-          - unlisted
-          - private
-          - direct
-        language:
-          type: string
-          nullable: true
-        uri:
-          type: string
-          format: uri
-        url:
-          type: string
-          format: uri
-          nullable: true
-        replies_count:
-          type: integer
-        reblogs_count:
-          type: integer
-        favourites_count:
-          type: integer
-        content:
-          type: string
-          description: HTML-encoded content of the status
-        reblog:
-          nullable: true
-          allOf:
-          - $ref: '#/components/schemas/Status'
-        application:
-          type: object
-          nullable: true
-          properties:
-            name:
-              type: string
-            website:
-              type: string
-              format: uri
-              nullable: true
-        account:
-          $ref: '#/components/schemas/Account'
-        media_attachments:
-          type: array
-          items:
-            $ref: '#/components/schemas/MediaAttachment'
-        mentions:
-          type: array
-          items:
-            $ref: '#/components/schemas/Mention'
-        tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-        emojis:
-          type: array
-          items:
-            $ref: '#/components/schemas/Emoji'
-        card:
-          nullable: true
-          $ref: '#/components/schemas/PreviewCard'
-        poll:
-          nullable: true
-          $ref: '#/components/schemas/Poll'
-        favourited:
-          type: boolean
-        reblogged:
-          type: boolean
-        muted:
-          type: boolean
-        bookmarked:
-          type: boolean
-        pinned:
-          type: boolean
-    PreviewCard:
+    Emoji:
       type: object
       properties:
+        shortcode:
+          type: string
         url:
           type: string
           format: uri
-        title:
-          type: string
-        description:
-          type: string
-        type:
-          type: string
-          enum:
-          - link
-          - photo
-          - video
-          - rich
-        image:
+        static_url:
           type: string
           format: uri
-          nullable: true
+        visible_in_picker:
+          type: boolean
   responses:
     Unauthorized:
       description: Missing or invalid OAuth token
@@ -885,14 +885,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    UnprocessableEntity:
-      description: Validation error
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found
+    UnprocessableEntity:
+      description: Validation error
       content:
         application/json:
           schema:

@@ -56,16 +56,6 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  schemas:
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message
-        error_description:
-          type: string
-          description: Additional error details
   parameters:
     maxIdParam:
       name: max_id
@@ -81,6 +71,16 @@ components:
         type: integer
         default: 20
         maximum: 80
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+        error_description:
+          type: string
+          description: Additional error details
   responses:
     Unauthorized:
       description: Missing or invalid OAuth token

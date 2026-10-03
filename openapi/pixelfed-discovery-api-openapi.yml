@@ -106,22 +106,6 @@ paths:
                 items:
                   $ref: '#/components/schemas/Account'
 components:
-  parameters:
-    limitParam:
-      name: limit
-      in: query
-      description: Maximum number of results to return (default 20, max 80)
-      schema:
-        type: integer
-        default: 20
-        maximum: 80
-  responses:
-    Unauthorized:
-      description: Missing or invalid OAuth token
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
     Account:
       type: object
@@ -187,19 +171,17 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Field'
-    Emoji:
+    Field:
       type: object
       properties:
-        shortcode:
+        name:
           type: string
-        url:
+        value:
           type: string
-          format: uri
-        static_url:
+        verified_at:
           type: string
-          format: uri
-        visible_in_picker:
-          type: boolean
+          format: date-time
+          nullable: true
     Error:
       type: object
       properties:
@@ -221,17 +203,35 @@ components:
           type: array
           items:
             type: object
-    Field:
+    Emoji:
       type: object
       properties:
-        name:
+        shortcode:
           type: string
-        value:
+        url:
           type: string
-        verified_at:
+          format: uri
+        static_url:
           type: string
-          format: date-time
-          nullable: true
+          format: uri
+        visible_in_picker:
+          type: boolean
+  parameters:
+    limitParam:
+      name: limit
+      in: query
+      description: Maximum number of results to return (default 20, max 80)
+      schema:
+        type: integer
+        default: 20
+        maximum: 80
+  responses:
+    Unauthorized:
+      description: Missing or invalid OAuth token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     OAuth2:
       type: oauth2

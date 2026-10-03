@@ -290,15 +290,19 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  parameters:
-    limitParam:
-      name: limit
-      in: query
-      description: Maximum number of results to return (default 20, max 80)
-      schema:
-        type: integer
-        default: 20
-        maximum: 80
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid OAuth token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
     Account:
       type: object
@@ -364,28 +368,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Field'
-    Emoji:
-      type: object
-      properties:
-        shortcode:
-          type: string
-        url:
-          type: string
-          format: uri
-        static_url:
-          type: string
-          format: uri
-        visible_in_picker:
-          type: boolean
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message
-        error_description:
-          type: string
-          description: Additional error details
     List:
       type: object
       properties:
@@ -399,6 +381,15 @@ components:
           - followed
           - list
           - none
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+        error_description:
+          type: string
+          description: Additional error details
     Field:
       type: object
       properties:
@@ -410,19 +401,28 @@ components:
           type: string
           format: date-time
           nullable: true
-  responses:
-    Unauthorized:
-      description: Missing or invalid OAuth token
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+    Emoji:
+      type: object
+      properties:
+        shortcode:
+          type: string
+        url:
+          type: string
+          format: uri
+        static_url:
+          type: string
+          format: uri
+        visible_in_picker:
+          type: boolean
+  parameters:
+    limitParam:
+      name: limit
+      in: query
+      description: Maximum number of results to return (default 20, max 80)
+      schema:
+        type: integer
+        default: 20
+        maximum: 80
   securitySchemes:
     OAuth2:
       type: oauth2

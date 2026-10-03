@@ -156,33 +156,6 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  parameters:
-    maxIdParam:
-      name: max_id
-      in: query
-      description: Return results older than this ID
-      schema:
-        type: string
-    limitParam:
-      name: limit
-      in: query
-      description: Maximum number of results to return (default 20, max 80)
-      schema:
-        type: integer
-        default: 20
-        maximum: 80
-    sinceIdParam:
-      name: since_id
-      in: query
-      description: Return results newer than this ID
-      schema:
-        type: string
-    minIdParam:
-      name: min_id
-      in: query
-      description: Return results immediately newer than this ID
-      schema:
-        type: string
   schemas:
     Mention:
       type: object
@@ -293,40 +266,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Field'
-    Emoji:
-      type: object
-      properties:
-        shortcode:
-          type: string
-        url:
-          type: string
-          format: uri
-        static_url:
-          type: string
-          format: uri
-        visible_in_picker:
-          type: boolean
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message
-        error_description:
-          type: string
-          description: Additional error details
-    Tag:
-      type: object
-      properties:
-        name:
-          type: string
-        url:
-          type: string
-          format: uri
-        history:
-          type: array
-          items:
-            type: object
     Status:
       type: object
       description: Represents a status (post) in the Pixelfed / Mastodon API
@@ -421,6 +360,26 @@ components:
           type: boolean
         pinned:
           type: boolean
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+        error_description:
+          type: string
+          description: Additional error details
+    Field:
+      type: object
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+        verified_at:
+          type: string
+          format: date-time
+          nullable: true
     PreviewCard:
       type: object
       properties:
@@ -469,17 +428,58 @@ components:
                 nullable: true
         voted:
           type: boolean
-    Field:
+    Tag:
       type: object
       properties:
         name:
           type: string
-        value:
+        url:
           type: string
-        verified_at:
+          format: uri
+        history:
+          type: array
+          items:
+            type: object
+    Emoji:
+      type: object
+      properties:
+        shortcode:
           type: string
-          format: date-time
-          nullable: true
+        url:
+          type: string
+          format: uri
+        static_url:
+          type: string
+          format: uri
+        visible_in_picker:
+          type: boolean
+  parameters:
+    limitParam:
+      name: limit
+      in: query
+      description: Maximum number of results to return (default 20, max 80)
+      schema:
+        type: integer
+        default: 20
+        maximum: 80
+    maxIdParam:
+      name: max_id
+      in: query
+      description: Return results older than this ID
+      schema:
+        type: string
+    sinceIdParam:
+      name: since_id
+      in: query
+      description: Return results newer than this ID
+      schema:
+        type: string
+    minIdParam:
+      name: min_id
+      in: query
+      description: Return results immediately newer than this ID
+      schema:
+        type: string
   responses:
     Unauthorized:
       description: Missing or invalid OAuth token

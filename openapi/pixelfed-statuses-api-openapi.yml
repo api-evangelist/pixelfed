@@ -509,28 +509,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Field'
-    Emoji:
-      type: object
-      properties:
-        shortcode:
-          type: string
-        url:
-          type: string
-          format: uri
-        static_url:
-          type: string
-          format: uri
-        visible_in_picker:
-          type: boolean
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message
-        error_description:
-          type: string
-          description: Additional error details
     Status:
       type: object
       description: Represents a status (post) in the Pixelfed / Mastodon API
@@ -625,6 +603,26 @@ components:
           type: boolean
         pinned:
           type: boolean
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+        error_description:
+          type: string
+          description: Additional error details
+    Field:
+      type: object
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+        verified_at:
+          type: string
+          format: date-time
+          nullable: true
     PreviewCard:
       type: object
       properties:
@@ -646,18 +644,6 @@ components:
           type: string
           format: uri
           nullable: true
-    Tag:
-      type: object
-      properties:
-        name:
-          type: string
-        url:
-          type: string
-          format: uri
-        history:
-          type: array
-          items:
-            type: object
     Poll:
       type: object
       properties:
@@ -685,27 +671,38 @@ components:
                 nullable: true
         voted:
           type: boolean
-    Field:
+    Tag:
       type: object
       properties:
         name:
           type: string
-        value:
+        url:
           type: string
-        verified_at:
+          format: uri
+        history:
+          type: array
+          items:
+            type: object
+    Emoji:
+      type: object
+      properties:
+        shortcode:
           type: string
-          format: date-time
-          nullable: true
-  parameters:
-    limitParam:
-      name: limit
-      in: query
-      description: Maximum number of results to return (default 20, max 80)
-      schema:
-        type: integer
-        default: 20
-        maximum: 80
+        url:
+          type: string
+          format: uri
+        static_url:
+          type: string
+          format: uri
+        visible_in_picker:
+          type: boolean
   responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     UnprocessableEntity:
       description: Validation error
       content:
@@ -718,12 +715,15 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+  parameters:
+    limitParam:
+      name: limit
+      in: query
+      description: Maximum number of results to return (default 20, max 80)
+      schema:
+        type: integer
+        default: 20
+        maximum: 80
   securitySchemes:
     OAuth2:
       type: oauth2
