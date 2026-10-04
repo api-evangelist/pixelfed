@@ -74,6 +74,19 @@ paths:
                 type: object
 components:
   schemas:
+    Emoji:
+      type: object
+      properties:
+        shortcode:
+          type: string
+        url:
+          type: string
+          format: uri
+        static_url:
+          type: string
+          format: uri
+        visible_in_picker:
+          type: boolean
     Account:
       type: object
       description: Represents a Pixelfed / Mastodon-compatible account
@@ -186,19 +199,6 @@ components:
           type: array
           items:
             type: object
-    Emoji:
-      type: object
-      properties:
-        shortcode:
-          type: string
-        url:
-          type: string
-          format: uri
-        static_url:
-          type: string
-          format: uri
-        visible_in_picker:
-          type: boolean
   securitySchemes:
     OAuth2:
       type: oauth2

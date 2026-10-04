@@ -400,51 +400,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    Mention:
-      type: object
-      properties:
-        id:
-          type: string
-        username:
-          type: string
-        acct:
-          type: string
-        url:
-          type: string
-          format: uri
-    MediaAttachment:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - unknown
-          - image
-          - gifv
-          - video
-          - audio
-        url:
-          type: string
-          format: uri
-          nullable: true
-        preview_url:
-          type: string
-          format: uri
-          nullable: true
-        remote_url:
-          type: string
-          format: uri
-          nullable: true
-        meta:
-          type: object
-        description:
-          type: string
-          nullable: true
-        blurhash:
-          type: string
-          nullable: true
     Account:
       type: object
       description: Represents a Pixelfed / Mastodon-compatible account
@@ -509,6 +464,102 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Field'
+    Tag:
+      type: object
+      properties:
+        name:
+          type: string
+        url:
+          type: string
+          format: uri
+        history:
+          type: array
+          items:
+            type: object
+    Poll:
+      type: object
+      properties:
+        id:
+          type: string
+        expires_at:
+          type: string
+          format: date-time
+          nullable: true
+        expired:
+          type: boolean
+        multiple:
+          type: boolean
+        votes_count:
+          type: integer
+        options:
+          type: array
+          items:
+            type: object
+            properties:
+              title:
+                type: string
+              votes_count:
+                type: integer
+                nullable: true
+        voted:
+          type: boolean
+    Emoji:
+      type: object
+      properties:
+        shortcode:
+          type: string
+        url:
+          type: string
+          format: uri
+        static_url:
+          type: string
+          format: uri
+        visible_in_picker:
+          type: boolean
+    PreviewCard:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+        title:
+          type: string
+        description:
+          type: string
+        type:
+          type: string
+          enum:
+          - link
+          - photo
+          - video
+          - rich
+        image:
+          type: string
+          format: uri
+          nullable: true
+    Field:
+      type: object
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+        verified_at:
+          type: string
+          format: date-time
+          nullable: true
+    Mention:
+      type: object
+      properties:
+        id:
+          type: string
+        username:
+          type: string
+        acct:
+          type: string
+        url:
+          type: string
+          format: uri
     Status:
       type: object
       description: Represents a status (post) in the Pixelfed / Mastodon API
@@ -603,6 +654,39 @@ components:
           type: boolean
         pinned:
           type: boolean
+    MediaAttachment:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - unknown
+          - image
+          - gifv
+          - video
+          - audio
+        url:
+          type: string
+          format: uri
+          nullable: true
+        preview_url:
+          type: string
+          format: uri
+          nullable: true
+        remote_url:
+          type: string
+          format: uri
+          nullable: true
+        meta:
+          type: object
+        description:
+          type: string
+          nullable: true
+        blurhash:
+          type: string
+          nullable: true
     Error:
       type: object
       properties:
@@ -612,93 +696,18 @@ components:
         error_description:
           type: string
           description: Additional error details
-    Field:
-      type: object
-      properties:
-        name:
-          type: string
-        value:
-          type: string
-        verified_at:
-          type: string
-          format: date-time
-          nullable: true
-    PreviewCard:
-      type: object
-      properties:
-        url:
-          type: string
-          format: uri
-        title:
-          type: string
-        description:
-          type: string
-        type:
-          type: string
-          enum:
-          - link
-          - photo
-          - video
-          - rich
-        image:
-          type: string
-          format: uri
-          nullable: true
-    Poll:
-      type: object
-      properties:
-        id:
-          type: string
-        expires_at:
-          type: string
-          format: date-time
-          nullable: true
-        expired:
-          type: boolean
-        multiple:
-          type: boolean
-        votes_count:
-          type: integer
-        options:
-          type: array
-          items:
-            type: object
-            properties:
-              title:
-                type: string
-              votes_count:
-                type: integer
-                nullable: true
-        voted:
-          type: boolean
-    Tag:
-      type: object
-      properties:
-        name:
-          type: string
-        url:
-          type: string
-          format: uri
-        history:
-          type: array
-          items:
-            type: object
-    Emoji:
-      type: object
-      properties:
-        shortcode:
-          type: string
-        url:
-          type: string
-          format: uri
-        static_url:
-          type: string
-          format: uri
-        visible_in_picker:
-          type: boolean
+  parameters:
+    limitParam:
+      name: limit
+      in: query
+      description: Maximum number of results to return (default 20, max 80)
+      schema:
+        type: integer
+        default: 20
+        maximum: 80
   responses:
-    NotFound:
-      description: Resource not found
+    Unauthorized:
+      description: Missing or invalid OAuth token
       content:
         application/json:
           schema:
@@ -709,21 +718,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid OAuth token
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  parameters:
-    limitParam:
-      name: limit
-      in: query
-      description: Maximum number of results to return (default 20, max 80)
-      schema:
-        type: integer
-        default: 20
-        maximum: 80
   securitySchemes:
     OAuth2:
       type: oauth2

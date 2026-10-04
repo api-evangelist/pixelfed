@@ -100,6 +100,99 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
+    Tag:
+      type: object
+      properties:
+        name:
+          type: string
+        url:
+          type: string
+          format: uri
+        history:
+          type: array
+          items:
+            type: object
+    Poll:
+      type: object
+      properties:
+        id:
+          type: string
+        expires_at:
+          type: string
+          format: date-time
+          nullable: true
+        expired:
+          type: boolean
+        multiple:
+          type: boolean
+        votes_count:
+          type: integer
+        options:
+          type: array
+          items:
+            type: object
+            properties:
+              title:
+                type: string
+              votes_count:
+                type: integer
+                nullable: true
+        voted:
+          type: boolean
+    Emoji:
+      type: object
+      properties:
+        shortcode:
+          type: string
+        url:
+          type: string
+          format: uri
+        static_url:
+          type: string
+          format: uri
+        visible_in_picker:
+          type: boolean
+    PreviewCard:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+        title:
+          type: string
+        description:
+          type: string
+        type:
+          type: string
+          enum:
+          - link
+          - photo
+          - video
+          - rich
+        image:
+          type: string
+          format: uri
+          nullable: true
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+        error_description:
+          type: string
+          description: Additional error details
+    Field:
+      type: object
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+        verified_at:
+          type: string
+          format: date-time
+          nullable: true
     Mention:
       type: object
       properties:
@@ -112,6 +205,100 @@ components:
         url:
           type: string
           format: uri
+    Status:
+      type: object
+      description: Represents a status (post) in the Pixelfed / Mastodon API
+      properties:
+        id:
+          type: string
+          example: '987654321'
+        created_at:
+          type: string
+          format: date-time
+        in_reply_to_id:
+          type: string
+          nullable: true
+        in_reply_to_account_id:
+          type: string
+          nullable: true
+        sensitive:
+          type: boolean
+        spoiler_text:
+          type: string
+        visibility:
+          type: string
+          enum:
+          - public
+          - unlisted
+          - private
+          - direct
+        language:
+          type: string
+          nullable: true
+        uri:
+          type: string
+          format: uri
+        url:
+          type: string
+          format: uri
+          nullable: true
+        replies_count:
+          type: integer
+        reblogs_count:
+          type: integer
+        favourites_count:
+          type: integer
+        content:
+          type: string
+          description: HTML-encoded content of the status
+        reblog:
+          nullable: true
+          allOf:
+          - $ref: '#/components/schemas/Status'
+        application:
+          type: object
+          nullable: true
+          properties:
+            name:
+              type: string
+            website:
+              type: string
+              format: uri
+              nullable: true
+        account:
+          $ref: '#/components/schemas/Account'
+        media_attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/MediaAttachment'
+        mentions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Mention'
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+        emojis:
+          type: array
+          items:
+            $ref: '#/components/schemas/Emoji'
+        card:
+          nullable: true
+          $ref: '#/components/schemas/PreviewCard'
+        poll:
+          nullable: true
+          $ref: '#/components/schemas/Poll'
+        favourited:
+          type: boolean
+        reblogged:
+          type: boolean
+        muted:
+          type: boolean
+        bookmarked:
+          type: boolean
+        pinned:
+          type: boolean
     MediaAttachment:
       type: object
       properties:
@@ -209,193 +396,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Field'
-    Status:
-      type: object
-      description: Represents a status (post) in the Pixelfed / Mastodon API
-      properties:
-        id:
-          type: string
-          example: '987654321'
-        created_at:
-          type: string
-          format: date-time
-        in_reply_to_id:
-          type: string
-          nullable: true
-        in_reply_to_account_id:
-          type: string
-          nullable: true
-        sensitive:
-          type: boolean
-        spoiler_text:
-          type: string
-        visibility:
-          type: string
-          enum:
-          - public
-          - unlisted
-          - private
-          - direct
-        language:
-          type: string
-          nullable: true
-        uri:
-          type: string
-          format: uri
-        url:
-          type: string
-          format: uri
-          nullable: true
-        replies_count:
-          type: integer
-        reblogs_count:
-          type: integer
-        favourites_count:
-          type: integer
-        content:
-          type: string
-          description: HTML-encoded content of the status
-        reblog:
-          nullable: true
-          allOf:
-          - $ref: '#/components/schemas/Status'
-        application:
-          type: object
-          nullable: true
-          properties:
-            name:
-              type: string
-            website:
-              type: string
-              format: uri
-              nullable: true
-        account:
-          $ref: '#/components/schemas/Account'
-        media_attachments:
-          type: array
-          items:
-            $ref: '#/components/schemas/MediaAttachment'
-        mentions:
-          type: array
-          items:
-            $ref: '#/components/schemas/Mention'
-        tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-        emojis:
-          type: array
-          items:
-            $ref: '#/components/schemas/Emoji'
-        card:
-          nullable: true
-          $ref: '#/components/schemas/PreviewCard'
-        poll:
-          nullable: true
-          $ref: '#/components/schemas/Poll'
-        favourited:
-          type: boolean
-        reblogged:
-          type: boolean
-        muted:
-          type: boolean
-        bookmarked:
-          type: boolean
-        pinned:
-          type: boolean
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message
-        error_description:
-          type: string
-          description: Additional error details
-    Field:
-      type: object
-      properties:
-        name:
-          type: string
-        value:
-          type: string
-        verified_at:
-          type: string
-          format: date-time
-          nullable: true
-    PreviewCard:
-      type: object
-      properties:
-        url:
-          type: string
-          format: uri
-        title:
-          type: string
-        description:
-          type: string
-        type:
-          type: string
-          enum:
-          - link
-          - photo
-          - video
-          - rich
-        image:
-          type: string
-          format: uri
-          nullable: true
-    Tag:
-      type: object
-      properties:
-        name:
-          type: string
-        url:
-          type: string
-          format: uri
-        history:
-          type: array
-          items:
-            type: object
-    Poll:
-      type: object
-      properties:
-        id:
-          type: string
-        expires_at:
-          type: string
-          format: date-time
-          nullable: true
-        expired:
-          type: boolean
-        multiple:
-          type: boolean
-        votes_count:
-          type: integer
-        options:
-          type: array
-          items:
-            type: object
-            properties:
-              title:
-                type: string
-              votes_count:
-                type: integer
-                nullable: true
-        voted:
-          type: boolean
-    Emoji:
-      type: object
-      properties:
-        shortcode:
-          type: string
-        url:
-          type: string
-          format: uri
-        static_url:
-          type: string
-          format: uri
-        visible_in_picker:
-          type: boolean
   parameters:
     limitParam:
       name: limit
@@ -405,16 +405,16 @@ components:
         type: integer
         default: 20
         maximum: 80
-    maxIdParam:
-      name: max_id
-      in: query
-      description: Return results older than this ID
-      schema:
-        type: string
     minIdParam:
       name: min_id
       in: query
       description: Return results immediately newer than this ID
+      schema:
+        type: string
+    maxIdParam:
+      name: max_id
+      in: query
+      description: Return results older than this ID
       schema:
         type: string
   responses:
