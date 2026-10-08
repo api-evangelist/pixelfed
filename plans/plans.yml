@@ -56,3 +56,28 @@ notes: >
   Because Pixelfed is self-hosted software there is no central SLA, uptime
   guarantee, or support contract from the upstream project. Enterprise support
   must be arranged independently with a managed-hosting vendor.
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - free
+  units: []
+  plans:
+  - name: Self-Hosted (Free)
+    access: other
+    model: free
+    model_how: derived
+    units: []
+    periods: []
+  - name: Managed Hosting (Third-party)
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
+  - name: Pixelfed.social (Flagship Instance)
+    access: other
+    model: free
+    model_how: derived
+    units: []
+    periods: []
