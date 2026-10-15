@@ -1,0 +1,14 @@
+fetched: '2026-10-15'
+method: fetched
+source: https://docs.pixelfed.org/spec/ActivityPub.html
+page: https://docs.pixelfed.org/spec/ActivityPub.html
+file: pixelfed-activitypub-1.md
+bytes: 27045
+sha256: 3200c517d2acf2ac3499ead825d727ead95114e0bcb242fcfdb34a0a230650c8
+anchor: activitypub
+shape: activitypub
+classification: declares-compatibility
+quote: A decentralized social networking protocol based upon the ActivityStreams 2.0 data format and JSON-LD. Pixelfed
+  uses ActivityPub to send and receive activities from other Pixelfed servers and other fediverse software like
+  Mastodon.
+note: text extracted from the provider's own page (tags stripped), saved for evidence

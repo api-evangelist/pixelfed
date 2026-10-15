@@ -1,0 +1,39 @@
+edges:
+- partner_name: ActivityPub
+  partner: activitypub
+  partner_match: shape-anchor
+  channel: provider-built
+  relationship: compatible
+  direction: provider-built
+  shape: activitypub
+  type: docs
+  degree: declared-subset
+  evidence: https://docs.pixelfed.org/spec/ActivityPub.html
+  evidence_kind: own-docs
+  evidence_file: https://github.com/api-evangelist/pixelfed/blob/main/evidence/compatibility/pixelfed-activitypub-1.md
+  quote: A decentralized social networking protocol based upon the ActivityStreams 2.0 data format and JSON-LD.
+    Pixelfed uses ActivityPub to send and receive activities from other Pixelfed servers and other fediverse software
+    like Mastodon.
+  supported_operations:
+  - Accept
+  - Add
+  - Announce
+  - Create
+  - Delete
+  - Flag
+  - Follow
+  - Like
+  - Reject
+  - Undo
+  - Update
+  - followers
+  - following
+  - inbox
+  - outbox
+  - sharedInbox
+  unsupported_operations: []
+  supported_share: 0.64
+  detected_by: sweep-shape-compat.py
+  first_seen: '2026-10-15'
+generated: '2026-10-15'
+method: searched
