@@ -3,11 +3,15 @@
   "last_checked": "2026-06-13",
   "feeds": [
     {
-      "url": "https://pixelfed.org/blog",
-      "type": "html",
-      "last_fetched": null,
-      "posts": []
+      "source": "https://pixelfed.org/blog/",
+      "feed_url": "https://pixelfed.org/blog/",
+      "title": "",
+      "saved": 0,
+      "method": "none"
     }
   ],
-  "posts": []
+  "posts": [],
+  "repo": "pixelfed",
+  "post_count": 0,
+  "fetched": "2026-10-10T13:15:00Z"
 }
