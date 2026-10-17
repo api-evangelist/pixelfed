@@ -87,6 +87,17 @@ components:
           format: uri
         visible_in_picker:
           type: boolean
+    Field:
+      type: object
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+        verified_at:
+          type: string
+          format: date-time
+          nullable: true
     Account:
       type: object
       description: Represents a Pixelfed / Mastodon-compatible account
@@ -151,17 +162,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Field'
-    Field:
-      type: object
-      properties:
-        name:
-          type: string
-        value:
-          type: string
-        verified_at:
-          type: string
-          format: date-time
-          nullable: true
     Instance:
       type: object
       properties:

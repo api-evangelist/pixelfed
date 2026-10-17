@@ -507,126 +507,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    Tag:
-      type: object
-      properties:
-        name:
-          type: string
-        url:
-          type: string
-          format: uri
-        history:
-          type: array
-          items:
-            type: object
-    Field:
-      type: object
-      properties:
-        name:
-          type: string
-        value:
-          type: string
-        verified_at:
-          type: string
-          format: date-time
-          nullable: true
-    Mention:
-      type: object
-      properties:
-        id:
-          type: string
-        username:
-          type: string
-        acct:
-          type: string
-        url:
-          type: string
-          format: uri
-    PreviewCard:
-      type: object
-      properties:
-        url:
-          type: string
-          format: uri
-        title:
-          type: string
-        description:
-          type: string
-        type:
-          type: string
-          enum:
-          - link
-          - photo
-          - video
-          - rich
-        image:
-          type: string
-          format: uri
-          nullable: true
-    Account:
-      type: object
-      description: Represents a Pixelfed / Mastodon-compatible account
-      properties:
-        id:
-          type: string
-          description: Unique identifier of the account
-          example: '123456789'
-        username:
-          type: string
-          description: The account's username (local part)
-          example: alice
-        acct:
-          type: string
-          description: 'Webfinger account URI. Equal to username for local accounts, or username@domain for remote accounts.
-
-            '
-          example: alice@pixelfed.social
-        display_name:
-          type: string
-          description: Display name of the account
-          example: Alice
-        locked:
-          type: boolean
-          description: Whether the account requires manual follow approval
-        created_at:
-          type: string
-          format: date-time
-        note:
-          type: string
-          description: Biography / profile note (HTML)
-        url:
-          type: string
-          format: uri
-          description: Profile URL
-        avatar:
-          type: string
-          format: uri
-          description: URL to the account's avatar image
-        avatar_static:
-          type: string
-          format: uri
-          description: URL to a static version of the avatar
-        header:
-          type: string
-          format: uri
-          description: URL to the account's header image
-        header_static:
-          type: string
-          format: uri
-        followers_count:
-          type: integer
-        following_count:
-          type: integer
-        statuses_count:
-          type: integer
-        emojis:
-          type: array
-          items:
-            $ref: '#/components/schemas/Emoji'
-        fields:
-          type: array
-          items:
-            $ref: '#/components/schemas/Field'
     CredentialAccount:
       allOf:
       - $ref: '#/components/schemas/Account'
@@ -648,27 +528,32 @@ components:
                 type: string
               note:
                 type: string
-    Error:
+    Poll:
       type: object
       properties:
-        error:
+        id:
           type: string
-          description: Error message
-        error_description:
+        expires_at:
           type: string
-          description: Additional error details
-    Emoji:
-      type: object
-      properties:
-        shortcode:
-          type: string
-        url:
-          type: string
-          format: uri
-        static_url:
-          type: string
-          format: uri
-        visible_in_picker:
+          format: date-time
+          nullable: true
+        expired:
+          type: boolean
+        multiple:
+          type: boolean
+        votes_count:
+          type: integer
+        options:
+          type: array
+          items:
+            type: object
+            properties:
+              title:
+                type: string
+              votes_count:
+                type: integer
+                nullable: true
+        voted:
           type: boolean
     Status:
       type: object
@@ -764,6 +649,57 @@ components:
           type: boolean
         pinned:
           type: boolean
+    Tag:
+      type: object
+      properties:
+        name:
+          type: string
+        url:
+          type: string
+          format: uri
+        history:
+          type: array
+          items:
+            type: object
+    Mention:
+      type: object
+      properties:
+        id:
+          type: string
+        username:
+          type: string
+        acct:
+          type: string
+        url:
+          type: string
+          format: uri
+    Relationship:
+      type: object
+      properties:
+        id:
+          type: string
+        following:
+          type: boolean
+        showing_reblogs:
+          type: boolean
+        notifying:
+          type: boolean
+        followed_by:
+          type: boolean
+        blocking:
+          type: boolean
+        blocked_by:
+          type: boolean
+        muting:
+          type: boolean
+        muting_notifications:
+          type: boolean
+        requested:
+          type: boolean
+        domain_blocking:
+          type: boolean
+        endorsed:
+          type: boolean
     MediaAttachment:
       type: object
       properties:
@@ -797,60 +733,124 @@ components:
         blurhash:
           type: string
           nullable: true
-    Relationship:
+    Account:
       type: object
+      description: Represents a Pixelfed / Mastodon-compatible account
       properties:
         id:
           type: string
-        following:
+          description: Unique identifier of the account
+          example: '123456789'
+        username:
+          type: string
+          description: The account's username (local part)
+          example: alice
+        acct:
+          type: string
+          description: 'Webfinger account URI. Equal to username for local accounts, or username@domain for remote accounts.
+
+            '
+          example: alice@pixelfed.social
+        display_name:
+          type: string
+          description: Display name of the account
+          example: Alice
+        locked:
           type: boolean
-        showing_reblogs:
-          type: boolean
-        notifying:
-          type: boolean
-        followed_by:
-          type: boolean
-        blocking:
-          type: boolean
-        blocked_by:
-          type: boolean
-        muting:
-          type: boolean
-        muting_notifications:
-          type: boolean
-        requested:
-          type: boolean
-        domain_blocking:
-          type: boolean
-        endorsed:
-          type: boolean
-    Poll:
+          description: Whether the account requires manual follow approval
+        created_at:
+          type: string
+          format: date-time
+        note:
+          type: string
+          description: Biography / profile note (HTML)
+        url:
+          type: string
+          format: uri
+          description: Profile URL
+        avatar:
+          type: string
+          format: uri
+          description: URL to the account's avatar image
+        avatar_static:
+          type: string
+          format: uri
+          description: URL to a static version of the avatar
+        header:
+          type: string
+          format: uri
+          description: URL to the account's header image
+        header_static:
+          type: string
+          format: uri
+        followers_count:
+          type: integer
+        following_count:
+          type: integer
+        statuses_count:
+          type: integer
+        emojis:
+          type: array
+          items:
+            $ref: '#/components/schemas/Emoji'
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/Field'
+    Emoji:
       type: object
       properties:
-        id:
+        shortcode:
           type: string
-        expires_at:
+        url:
+          type: string
+          format: uri
+        static_url:
+          type: string
+          format: uri
+        visible_in_picker:
+          type: boolean
+    Field:
+      type: object
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+        verified_at:
           type: string
           format: date-time
           nullable: true
-        expired:
-          type: boolean
-        multiple:
-          type: boolean
-        votes_count:
-          type: integer
-        options:
-          type: array
-          items:
-            type: object
-            properties:
-              title:
-                type: string
-              votes_count:
-                type: integer
-                nullable: true
-        voted:
-          type: boolean
+    PreviewCard:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+        title:
+          type: string
+        description:
+          type: string
+        type:
+          type: string
+          enum:
+          - link
+          - photo
+          - video
+          - rich
+        image:
+          type: string
+          format: uri
+          nullable: true
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+        error_description:
+          type: string
+          description: Additional error details
   parameters:
     minIdParam:
       name: min_id
@@ -858,10 +858,10 @@ components:
       description: Return results immediately newer than this ID
       schema:
         type: string
-    sinceIdParam:
-      name: since_id
+    maxIdParam:
+      name: max_id
       in: query
-      description: Return results newer than this ID
+      description: Return results older than this ID
       schema:
         type: string
     limitParam:
@@ -872,10 +872,10 @@ components:
         type: integer
         default: 20
         maximum: 80
-    maxIdParam:
-      name: max_id
+    sinceIdParam:
+      name: since_id
       in: query
-      description: Return results older than this ID
+      description: Return results newer than this ID
       schema:
         type: string
   responses:
@@ -885,14 +885,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid OAuth token
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found
+    Unauthorized:
+      description: Missing or invalid OAuth token
       content:
         application/json:
           schema:

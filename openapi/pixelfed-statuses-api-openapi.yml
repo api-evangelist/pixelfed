@@ -399,7 +399,53 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  responses:
+    Unauthorized:
+      description: Missing or invalid OAuth token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnprocessableEntity:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    Poll:
+      type: object
+      properties:
+        id:
+          type: string
+        expires_at:
+          type: string
+          format: date-time
+          nullable: true
+        expired:
+          type: boolean
+        multiple:
+          type: boolean
+        votes_count:
+          type: integer
+        options:
+          type: array
+          items:
+            type: object
+            properties:
+              title:
+                type: string
+              votes_count:
+                type: integer
+                nullable: true
+        voted:
+          type: boolean
     Account:
       type: object
       description: Represents a Pixelfed / Mastodon-compatible account
@@ -464,102 +510,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Field'
-    Tag:
-      type: object
-      properties:
-        name:
-          type: string
-        url:
-          type: string
-          format: uri
-        history:
-          type: array
-          items:
-            type: object
-    Poll:
-      type: object
-      properties:
-        id:
-          type: string
-        expires_at:
-          type: string
-          format: date-time
-          nullable: true
-        expired:
-          type: boolean
-        multiple:
-          type: boolean
-        votes_count:
-          type: integer
-        options:
-          type: array
-          items:
-            type: object
-            properties:
-              title:
-                type: string
-              votes_count:
-                type: integer
-                nullable: true
-        voted:
-          type: boolean
-    Emoji:
-      type: object
-      properties:
-        shortcode:
-          type: string
-        url:
-          type: string
-          format: uri
-        static_url:
-          type: string
-          format: uri
-        visible_in_picker:
-          type: boolean
-    PreviewCard:
-      type: object
-      properties:
-        url:
-          type: string
-          format: uri
-        title:
-          type: string
-        description:
-          type: string
-        type:
-          type: string
-          enum:
-          - link
-          - photo
-          - video
-          - rich
-        image:
-          type: string
-          format: uri
-          nullable: true
-    Field:
-      type: object
-      properties:
-        name:
-          type: string
-        value:
-          type: string
-        verified_at:
-          type: string
-          format: date-time
-          nullable: true
-    Mention:
-      type: object
-      properties:
-        id:
-          type: string
-        username:
-          type: string
-        acct:
-          type: string
-        url:
-          type: string
-          format: uri
     Status:
       type: object
       description: Represents a status (post) in the Pixelfed / Mastodon API
@@ -687,6 +637,62 @@ components:
         blurhash:
           type: string
           nullable: true
+    Field:
+      type: object
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+        verified_at:
+          type: string
+          format: date-time
+          nullable: true
+    Tag:
+      type: object
+      properties:
+        name:
+          type: string
+        url:
+          type: string
+          format: uri
+        history:
+          type: array
+          items:
+            type: object
+    Mention:
+      type: object
+      properties:
+        id:
+          type: string
+        username:
+          type: string
+        acct:
+          type: string
+        url:
+          type: string
+          format: uri
+    PreviewCard:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+        title:
+          type: string
+        description:
+          type: string
+        type:
+          type: string
+          enum:
+          - link
+          - photo
+          - video
+          - rich
+        image:
+          type: string
+          format: uri
+          nullable: true
     Error:
       type: object
       properties:
@@ -696,6 +702,19 @@ components:
         error_description:
           type: string
           description: Additional error details
+    Emoji:
+      type: object
+      properties:
+        shortcode:
+          type: string
+        url:
+          type: string
+          format: uri
+        static_url:
+          type: string
+          format: uri
+        visible_in_picker:
+          type: boolean
   parameters:
     limitParam:
       name: limit
@@ -705,25 +724,6 @@ components:
         type: integer
         default: 20
         maximum: 80
-  responses:
-    Unauthorized:
-      description: Missing or invalid OAuth token
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    UnprocessableEntity:
-      description: Validation error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     OAuth2:
       type: oauth2
