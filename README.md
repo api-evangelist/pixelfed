@@ -64,36 +64,159 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Pixelfed is a decentralized, federated photo-sharing platform and open-source alternative to Instagram. Built on the ActivityPub protocol, it connects with the broader Fediverse — including Mastodon, PeerTube, and other federated networks — while giving users full ownership of their content and data.
+Pixelfed is a decentralized, federated photo-sharing platform and open-source alternative to Instagram. Built on the ActivityPub protocol, it connects with the broader Fediverse — including Mastodon, PeerTube, and other federated networks — while giving users full ownership of their content. Pixelfed exposes a REST API that is broadly compatible with the Mastodon v1/v2 API, covering media uploads, status management, timelines, notifications, follower graphs, direct messages, stories, collections, and administrative functions. Developers can register OAuth2 applications against any public Pixelfed instance and build clients using the same patterns used for Mastodon- compatible apps.
 
-## API
+**Areas:** Fediverse · ActivityPub · Photo Sharing · Social Media · Open Source · Decentralized · Mastodon Compatible · Federation
 
-Pixelfed exposes a REST API broadly compatible with the Mastodon v1/v2 API. Because Pixelfed is self-hosted software, every instance operates its own independent API endpoint at its own domain. Developers build against a specific instance (e.g., `https://pixelfed.social`) or target the instance their users belong to.
+## Pixelfed on APIs.io
 
-Key capability areas:
+Everything profiled for Pixelfed is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/pixelfed/](https://apis.io/providers/pixelfed/)** — or go straight to one of the APIs or properties below.
 
-- **Accounts** — verify credentials, manage profiles, follow/unfollow, block/mute
-- **Statuses** — create, retrieve, delete posts; favourite and reblog
-- **Timelines** — home, public, hashtag, and list feeds
-- **Media** — upload and manage photos and videos
-- **Notifications** — retrieve and dismiss notification events
-- **Search** — full-text and account/hashtag search (v2)
-- **Collections** — curated photo sets
-- **Stories** — ephemeral content (Pixelfed extension)
-- **Direct Messages** — private conversations (v1.1 extension)
-- **ActivityPub / Federation** — inbox/outbox, WebFinger, NodeInfo
+### APIs (17)
 
-## Authentication
+- [Pixelfed Accounts API](https://apis.io/apis/pixelfed/pixelfed-accounts-api/) — Account management, follow/block/mute operations
+- [Pixelfed Blocks and Mutes API](https://apis.io/apis/pixelfed/pixelfed-blocks-and-mutes-api/) — Blocked accounts and muted accounts
+- [Pixelfed Bookmarks API](https://apis.io/apis/pixelfed/pixelfed-bookmarks-api/) — Bookmarked statuses
+- [Pixelfed Collections API](https://apis.io/apis/pixelfed/pixelfed-collections-api/) — Pixelfed-specific photo collections (v1.1)
+- [Pixelfed Direct Messages API](https://apis.io/apis/pixelfed/pixelfed-direct-messages-api/) — Pixelfed-specific direct messaging (v1.1)
+- [Pixelfed Discovery API](https://apis.io/apis/pixelfed/pixelfed-discovery-api/) — Trending content, suggestions, and directory
+- [Pixelfed Favourites API](https://apis.io/apis/pixelfed/pixelfed-favourites-api/) — Favourited statuses
+- [Pixelfed Follow Requests API](https://apis.io/apis/pixelfed/pixelfed-follow-requests-api/) — Pending follow requests
+- [Pixelfed Instance API](https://apis.io/apis/pixelfed/pixelfed-instance-api/) — Instance and federation metadata
+- [Pixelfed Lists API](https://apis.io/apis/pixelfed/pixelfed-lists-api/) — List management and membership
+- [Pixelfed Media API](https://apis.io/apis/pixelfed/pixelfed-media-api/) — Media upload and management
+- [Pixelfed Notifications API](https://apis.io/apis/pixelfed/pixelfed-notifications-api/) — Notification retrieval and management
+- [Pixelfed Push Notifications API](https://apis.io/apis/pixelfed/pixelfed-push-notifications-api/) — Web push subscription management (v1.1)
+- [Pixelfed Search API](https://apis.io/apis/pixelfed/pixelfed-search-api/) — Full-text and entity search
+- [Pixelfed Statuses API](https://apis.io/apis/pixelfed/pixelfed-statuses-api/) — Creating, reading, and interacting with statuses (posts)
+- [Pixelfed Stories API](https://apis.io/apis/pixelfed/pixelfed-stories-api/) — Pixelfed-specific ephemeral stories (v1.1)
+- [Pixelfed Timelines API](https://apis.io/apis/pixelfed/pixelfed-timelines-api/) — Home, public, tag, and list timelines
 
-OAuth2 with authorization_code flow. Register an application at `https://{instance}/settings/applications` to obtain `client_id` and `client_secret`, then exchange for a Bearer token. Personal Access Tokens are also supported for scripting.
+### Published properties
 
-## Resources
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-- **Documentation**: https://docs.pixelfed.org/
-- **GitHub**: https://github.com/pixelfed/pixelfed
-- **Flagship instance**: https://pixelfed.social
-- **Mobile apps**: iOS and Android (launched January 2025)
+#### Agentic access (1)
 
-## License
+Which operations an agent can call, which act, and which need a human in the loop.
 
-Pixelfed is licensed under the [AGPL-3.0](https://github.com/pixelfed/pixelfed/blob/dev/LICENSE).
+- [Pixelfed Agentic Access](https://apis.io/agentic-access/pixelfed/pixelfed-agentic-access/)
+
+#### JSON-LD (1)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [Pixelfed Context](https://apis.io/jsonld/pixelfed/pixelfed/)
+
+#### Collections (17)
+
+Postman and Open Collection request collections.
+
+- [Pixelfed REST Accounts API](https://apis.io/collections/pixelfed/open-pixelfed-accounts-api/)
+- [Pixelfed REST Accounts Blocks and Mutes API](https://apis.io/collections/pixelfed/open-pixelfed-blocks-and-mutes-api/)
+- [Pixelfed REST Accounts Bookmarks API](https://apis.io/collections/pixelfed/open-pixelfed-bookmarks-api/)
+- [Pixelfed REST Accounts Collections API](https://apis.io/collections/pixelfed/open-pixelfed-collections-api/)
+- [Pixelfed REST Accounts Direct Messages API](https://apis.io/collections/pixelfed/open-pixelfed-direct-messages-api/)
+- [Pixelfed REST Accounts Discovery API](https://apis.io/collections/pixelfed/open-pixelfed-discovery-api/)
+- [Pixelfed REST Accounts Favourites API](https://apis.io/collections/pixelfed/open-pixelfed-favourites-api/)
+- [Pixelfed REST Accounts Follow Requests API](https://apis.io/collections/pixelfed/open-pixelfed-follow-requests-api/)
+- [Pixelfed REST Accounts Instance API](https://apis.io/collections/pixelfed/open-pixelfed-instance-api/)
+- [Pixelfed REST Accounts Lists API](https://apis.io/collections/pixelfed/open-pixelfed-lists-api/)
+- [Pixelfed REST Accounts Media API](https://apis.io/collections/pixelfed/open-pixelfed-media-api/)
+- [Pixelfed REST Accounts Notifications API](https://apis.io/collections/pixelfed/open-pixelfed-notifications-api/)
+- [Pixelfed REST Accounts Push Notifications API](https://apis.io/collections/pixelfed/open-pixelfed-push-notifications-api/)
+- [Pixelfed REST Accounts Search API](https://apis.io/collections/pixelfed/open-pixelfed-search-api/)
+- [Pixelfed REST Accounts Statuses API](https://apis.io/collections/pixelfed/open-pixelfed-statuses-api/)
+- [Pixelfed REST Accounts Stories API](https://apis.io/collections/pixelfed/open-pixelfed-stories-api/)
+- [Pixelfed REST Accounts Timelines API](https://apis.io/collections/pixelfed/open-pixelfed-timelines-api/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Pixelfed Authentication](https://apis.io/security/pixelfed/pixelfed-authentication/)
+- [Pixelfed Domain Security](https://apis.io/security/pixelfed/pixelfed-domain-security/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Pixelfed Scopes](https://apis.io/scopes/pixelfed/pixelfed-scopes/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Plans](https://apis.io/plans/pixelfed/plans/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Rate Limits](https://apis.io/rate-limits/pixelfed/rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Finops](https://apis.io/finops/pixelfed/finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://pixelfed.org)
+- [Blog](https://pixelfed.org/blog/)
+
+## API Evangelist rating
+
+**Kin Score 37.2** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 53.6 |
+| Contract governance | 0.0 |
+| Operational transparency | 39.5 |
+| Developer ergonomics | 11.9 |
+| Access clarity | 7.9 |
+
+**Agent readiness 26.5** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | — |
+| Auth Clarity | negotiable (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | documented (partial credit) |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 26.5** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/pixelfed/](https://apis.io/providers/pixelfed/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Pixelfed: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/pixelfed/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
